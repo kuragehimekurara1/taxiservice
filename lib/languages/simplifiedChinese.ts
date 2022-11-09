@@ -1,5 +1,5 @@
 
-const simplifiedchinese = {
+const simplifiedChinese = {
     settings: {
         displayName: '简体中文 (Simplified Chinese)',
         code: 'zh-CN',
@@ -123,7 +123,7 @@ const simplifiedchinese = {
         ERR_USER_NOT_FOUND: '找不到用户。',
         ERR_USER_NOT_VERIFIED: '用户未通过验证。',
         HTML_ERROR_404: '您要查找的页面不存在。',
-        UNACCEPTABLE_EMAIL:'新的电子邮件地址是不可接受的，因为它已经在使用中。'
+        UNACCEPTABLE_EMAIL: '新的电子邮件地址是不可接受的，因为它已经在使用中。'
     },
     messageDialog: {
         ok: '好的',
@@ -144,7 +144,7 @@ const simplifiedchinese = {
         updatingEmail: '正在更新电子邮件...',
         loading: '正在加载...',
         updateAndLogin: '更新和注销',
-        emailUpdateInfo:'警告！ 如果您更改电子邮件，您将被注销，您需要使用新电子邮件重新登录。',
+        emailUpdateInfo: '警告！ 如果您更改电子邮件，您将被注销，您需要使用新电子邮件重新登录。',
     },
     profilePictureDialog: {
         title: '头像选择',
@@ -199,7 +199,7 @@ const simplifiedchinese = {
         sent: '发送',
         accepted: '公认',
         notSent: '未发送',
-        reload:'重新加载',
+        reload: '重新加载',
     },
     settingsPage: {
         title: '设置',
@@ -218,7 +218,7 @@ const simplifiedchinese = {
         customerAccess: '请求旅行或查看以前的旅行',
         personnelAccess: '申请工作并接受旅行优惠',
         entrepreneurAccess: '访问所有机构和人事活动',
-        selectAccountType:'选择用户帐户类型：',
+        selectAccountType: '选择用户帐户类型：',
     },
     pageNotFound: {
         title: '网页未找到！',
@@ -271,7 +271,7 @@ const simplifiedchinese = {
         },
         userInformation: {
             title: '用户信息',
-            
+
         }
     },
     submitForm: {
@@ -297,4 +297,4 @@ const simplifiedchinese = {
     }
 };
 
-export default simplified chinese;
+export default simplifiedChinese;

@@ -1,5 +1,5 @@
 
-const traditionalchinese = {
+const traditionalChinese = {
     settings: {
         displayName: '繁体中文(Traditional Chinese)',
         code: 'zh-TW',
@@ -123,7 +123,7 @@ const traditionalchinese = {
         ERR_USER_NOT_FOUND: '找不到用戶。',
         ERR_USER_NOT_VERIFIED: '用戶未通過驗證。',
         HTML_ERROR_404: '您要查找的頁面不存在。',
-        UNACCEPTABLE_EMAIL:'新的電子郵件地址是不可接受的，因為它已經在使用中。'
+        UNACCEPTABLE_EMAIL: '新的電子郵件地址是不可接受的，因為它已經在使用中。'
     },
     messageDialog: {
         ok: '好的',
@@ -144,7 +144,7 @@ const traditionalchinese = {
         updatingEmail: '正在更新電子郵件...',
         loading: '正在加載...',
         updateAndLogin: '更新和註銷',
-        emailUpdateInfo:'警告！ 如果您更改電子郵件，您將被註銷，您需要使用新電子郵件重新登錄。',
+        emailUpdateInfo: '警告！ 如果您更改電子郵件，您將被註銷，您需要使用新電子郵件重新登錄。',
     },
     profilePictureDialog: {
         title: '頭像選擇',
@@ -199,7 +199,7 @@ const traditionalchinese = {
         sent: '發送',
         accepted: '公認',
         notSent: '未發送',
-        reload:'重新加載',
+        reload: '重新加載',
     },
     settingsPage: {
         title: '設置',
@@ -218,7 +218,7 @@ const traditionalchinese = {
         customerAccess: '請求旅行或查看以前的旅行',
         personnelAccess: '申請工作並接受旅行優惠',
         entrepreneurAccess: '訪問所有機構和人事活動',
-        selectAccountType:'選擇用戶帳戶類型：',
+        selectAccountType: '選擇用戶帳戶類型：',
     },
     pageNotFound: {
         title: '網頁未找到！',
@@ -271,7 +271,7 @@ const traditionalchinese = {
         },
         userInformation: {
             title: '用戶信息',
-            
+
         }
     },
     submitForm: {
@@ -297,4 +297,4 @@ const traditionalchinese = {
     }
 };
 
-export default traditional chinese;
+export default traditionalChinese;
