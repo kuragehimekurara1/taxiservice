@@ -71,6 +71,10 @@ const persian = {
         successfullyChangeEmail: 'آفرین! ایمیل با موفقیت توسط شما تغییر کرد.لطفا دوباره وارد سیستم شوید.',
         unauthenticated: 'شما وارد سیستم نشده اید!',
         currentEmailError: 'آدرس ایمیلی که وارد کردید آدرس فعلی شما نیست.',
+        chooseOnlyUnsendRequests: 'لطفا فقط درخواست هایی را که ارسال نشده اند انتخاب کنید.',
+        chooseOnlySendedRequests: 'لطفا فقط درخواست هایی را که ارسال شده اند انتخاب کنید.',
+        unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
+        operationSuccess: 'عملیات با موفقیت انجام شد.',
 
     },
     authorizedLayout: {
@@ -200,6 +204,10 @@ const persian = {
         sent: 'ارسال شده',
         accepted: 'پذیرفته شده',
         reload: 'بارگذاری مجدد',
+        sendRequest: 'ارسال درخواست ها',
+        cancelRequest: 'لغو درخواست ها',
+        sendingRequests: 'در حال ارسال درخواست ها...',
+        cancelingRequests: 'در حال لغو درخواست ها...',
     },
     settingsPage: {
         title: 'تنظیمات',

@@ -12,7 +12,7 @@ import type { NextPage } from 'next';
 import { JobRequest } from '../../../types/job-request';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { ToastContext } from '../../../components/context/ToastContext';
-import { getData } from '../../../lib/axiosRequest';
+import { getData, postData } from '../../../lib/axiosRequest';
 import { useContext, useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
@@ -25,7 +25,9 @@ const JobRequests: NextPage = () => {
     const { language } = useContext(LanguageContext);
 
     const [jobRequests, setJobRequests] = useState<JobRequest[] | undefined>(undefined);
-    const { jobRequestsPage, settings, components } = language;
+    const [enableRequest, setEnableRequest] = useState(false);
+    const [selectedRow, setSelectedRow] = useState<JobRequest[]>([]);
+    const { jobRequestsPage, settings, components, notification } = language;
     const { dataGrid } = components;
     const [loadingText, setLoadingText] = useState(jobRequestsPage.loading);
     const [reload, setReload] = useState(false);
@@ -73,6 +75,33 @@ const JobRequests: NextPage = () => {
     const rowsWithLabel = JSON.parse(JSON.stringify(rows || []));
     const sendedColor = '#0012eb2b';
     const acceptedColor = '#04ff232e';
+    const handleRequest = async (insertMode: boolean) => {
+        if (!selectedRow || selectedRow.length === 0) {
+            setToast({ id: Math.random(), message: notification.unselectedRow, alertColor: 'error' });
+            return;
+        }
+        const selectedRowByStatus = selectedRow.filter((jr) => jr.status === (insertMode ? 0 : 1));
+        if (selectedRowByStatus.length !== selectedRow.length) {
+            setToast({
+                id: Math.random(), message:
+                    insertMode ? notification.chooseOnlyUnsendRequests : notification.chooseOnlySendedRequests,
+                alertColor: 'warning'
+            });
+            return;
+        }
+        const selectedRowIds = selectedRowByStatus.map((jr) => jr.id);
+
+        setLoadingText(insertMode ? jobRequestsPage.sendingRequests : jobRequestsPage.cancelingRequests);
+        const response = await postData(publicUrl + '/api/personel/updateRequests', { ids: selectedRowIds, insertMode: insertMode });
+        if (response && response.status === 200) {
+            setToast({ id: Math.random(), message: notification.operationSuccess, alertColor: 'success' });
+            setJobRequests(response.data as JobRequest[]);
+        }
+        else
+            setJobRequests(undefined);
+        setLoadingText('');
+
+    };
 
     return (
         <AuthorizedLayout>
@@ -109,6 +138,12 @@ const JobRequests: NextPage = () => {
                                             checkboxSelection
                                             disableSelectionOnClick
                                             disableColumnMenu
+                                            onSelectionModelChange={(newSelection) => {
+                                                const isValid = newSelection.length > 0;
+                                                const selectedRow = rows?.filter((r) => newSelection.includes(r.id)) || [];
+                                                setSelectedRow(selectedRow);
+                                                setEnableRequest(isValid);
+                                            }}
                                             getRowClassName={(param) => `selected-theme-${param.row.status}`}
                                             localeText={{
                                                 noRowsLabel: dataGrid.noData,
@@ -119,7 +154,16 @@ const JobRequests: NextPage = () => {
                                     </Box>
                                 </CardContent>
                                 <CardActions>
-                                    <Button variant='contained' color='primary' onClick={() => setReload(true)} >{jobRequestsPage.reload}</Button>
+                                    <CenterBox wrapMode={true}>
+                                        <Button variant='contained' color='primary' onClick={() => setReload(true)} >{jobRequestsPage.reload}</Button>
+                                        <Button variant='contained' disabled={!enableRequest} color='primary'
+                                            onClick={() => handleRequest(true)}  >
+                                            {jobRequestsPage.sendRequest}
+                                        </Button>
+                                        <Button variant='contained' disabled={!enableRequest} color='primary' onClick={() => handleRequest(false)}  >
+                                            {jobRequestsPage.cancelRequest}
+                                        </Button>
+                                    </CenterBox>
                                 </CardActions>
                             </Card>
                         </>

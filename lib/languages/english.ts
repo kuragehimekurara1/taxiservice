@@ -71,7 +71,10 @@ const english = {
         successfullyLogin: 'Congratulations, you have successfully logged in.',
         unauthenticated: 'You are not logged in!',
         currentEmailError: 'The email address you entered is not your current one.',
-
+        chooseOnlyUnsendRequests: 'You should only select requests that have not yet been sent.',
+        chooseOnlySendedRequests: 'You should only select requests that have been sent.',
+        unselectedRow: 'You have not selected any row.',
+        operationSuccess: 'The operation was successful.',
     },
     authorizedLayout: {
         loading: 'Loading...',
@@ -199,7 +202,11 @@ const english = {
         sent: 'Sent',
         accepted: 'Accepted',
         notSent: 'Not sent',
-        reload:'Reload',
+        reload: 'Reload',
+        sendRequest: 'Send requests',
+        cancelRequest: 'Cancel requests',
+        sendingRequests: 'Sending requests...',
+        cancelingRequests: 'Canceling requests...',
     },
     settingsPage: {
         title: 'Settings',
