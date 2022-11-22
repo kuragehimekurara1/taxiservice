@@ -208,6 +208,14 @@ const english = {
         sendingRequests: 'Sending requests...',
         cancelingRequests: 'Canceling requests...',
     },
+    personelManagementPage: {
+        title: 'Personnel management',
+        receivingPersonnel: 'Receiving personnel...',
+        personelList: 'Personnel list',
+        jobRequests: 'Job requests',
+        reload: 'Reload',
+        acceptRequests: 'Accept requests',
+    },
     settingsPage: {
         title: 'Settings',
         fullName: 'Full name',

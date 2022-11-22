@@ -9,17 +9,17 @@ import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
 import Paper from '@mui/material/Paper';
 import type { NextPage } from 'next';
+import { Box } from '@mui/system';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { JobRequest } from '../../../types/job-request';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { ToastContext } from '../../../components/context/ToastContext';
 import { getData, postData } from '../../../lib/axiosRequest';
 import { useContext, useEffect, useState } from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Box } from '@mui/system';
-
-
 
 const JobRequests: NextPage = () => {
+
+    const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
 
     const { setToast } = useContext(ToastContext);
     const { language } = useContext(LanguageContext);
@@ -31,8 +31,6 @@ const JobRequests: NextPage = () => {
     const { dataGrid } = components;
     const [loadingText, setLoadingText] = useState(jobRequestsPage.loading);
     const [reload, setReload] = useState(false);
-
-    const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
     useEffect(() => {
         if (!jobRequests || reload) {
             const getDataAsync = async () => {
@@ -49,8 +47,8 @@ const JobRequests: NextPage = () => {
     }, [jobRequests, jobRequestsPage.receivingJobRequests, publicUrl, reload]);
 
     const columns: GridColDef[] = [
-        { field: 'agencyName', headerName: jobRequestsPage.agencyName, sortable: true, flex: 1 },
-        { field: 'statusLabel', headerName: jobRequestsPage.status, sortable: true, flex: 1 },
+        { field: 'agencyName', headerName: jobRequestsPage.agencyName, sortable: true },
+        { field: 'statusLabel', headerName: jobRequestsPage.status, sortable: true},
     ];
     const statusToString = (status: number) => {
         switch (status) {

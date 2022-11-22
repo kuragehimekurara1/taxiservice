@@ -209,6 +209,14 @@ const persian = {
         sendingRequests: 'در حال ارسال درخواست ها...',
         cancelingRequests: 'در حال لغو درخواست ها...',
     },
+    personelManagementPage: {
+        title: 'مدیریت پرسنل',
+        receivingPersonnel: 'در حال دریافت پرسنل...',
+        personelList: 'لیست پرسنل',
+        jobRequests: 'درخواست های شغلی',
+        reload: 'بارگذاری مجدد',
+        acceptRequests: 'پذیرفتن درخواست ها',
+    },
     settingsPage: {
         title: 'تنظیمات',
         fullName: 'نام و نام خانوادگی',

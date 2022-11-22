@@ -44,7 +44,7 @@ const Sidebar = () => {
                             </ExpandableItems>
                             <ExpandableItems label={sidebar.personnel} isOpen={true} >
                             <SidebarItem item={{ icon: <MdOutlineGroupAdd />, text: sidebar.jobRequests, url: '/user/personnel/jobRequests' }} />
-                                <SidebarItem item={{ icon: <HiUserGroup />, text: sidebar.managePersonnel, url: '/user/personnel/manage' }} />
+                            <SidebarItem item={{ icon: <HiUserGroup />, text: sidebar.managePersonnel, url: '/user/personnel/management' }} />
                             </ExpandableItems>
                             <Divider />
                             <SidebarItem item={{ icon: <TbRoad />, text: sidebar.trips, url: '/trips' }} />
