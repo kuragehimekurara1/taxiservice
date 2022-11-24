@@ -1,13 +1,15 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import Popper from '@mui/material/Popper';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { LanguageContext } from '../context/LanguageContext';
 import { SxProps, Theme } from '@mui/material/styles';
+import { Avatar } from '@mui/material';
 
 export type TaggedItem<T> = {
     displayText: string;
     tag: T;
+    avatar?: string;
 };
 
 export type AutoCompletePlusProps<T> = {
@@ -29,7 +31,7 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
 
     const { settings, components } = language;
     const { direction } = settings;
-
+    const [selectedItem, setSelectedItem] = useState<string | undefined>(selectedValue);
     const options = items?.map((item, index) => {
         const firstLetter = item.displayText ? item.displayText[0].toUpperCase() : ' ';
         return {
@@ -37,10 +39,11 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
             tag: item.tag,
             key: index,
+            avatar: item.avatar,
         };
     });
+    const item = options?.find((item) => item.tag === selectedItem as string);
 
-    const selectedItem = options?.find((item) => item.tag === selectedValue);
     return (
         <Autocomplete
             id='grouped-demo'
@@ -50,7 +53,8 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             getOptionLabel={(option) => option.displayText}
             renderOption={(props, option) => {
                 return (
-                    <li {...props} key={option.key}  >
+                    <li {...props} key={option.key} style={{ display: 'flex', gap: '1rem' }}  >
+                        {option.avatar && <Avatar key={option.key} src={option.avatar} sx={{ width: 48, height: 48 }} />}
                         {option.displayText}
                     </li>
                 );
@@ -58,10 +62,18 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             sx={style}
             noOptionsText={components.noOptionsText}
             loadingText={components.loadingText}
-            value={selectedItem || null}
-            onChange={(event, item) => onChanged && onChanged(item)}
+            value={item || null}
+            onChange={(event, item) => {
+                if (onChanged)
+                    onChanged(item);
+                setSelectedItem(item?.tag as string);
+            }}
             PopperComponent={(props) => <Popper dir={direction} {...props} />}
-            renderInput={(params) => <TextField onChange={e => onInputTextChanged && onInputTextChanged(e.target.value)} label={label} {...params} />}
+            renderInput={(params) => <TextField  onChange={e => {
+                if (onInputTextChanged)
+                    onInputTextChanged(e.target.value);
+            }}
+                {...params} label={label} />}
         />
     );
 };

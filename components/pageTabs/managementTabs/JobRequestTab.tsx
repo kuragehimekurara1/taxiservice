@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/system/useTheme';
 import { Button } from '@mui/material';
@@ -52,7 +52,7 @@ const JobRequestTab = () => {
             return;
         }
         if (response.status === 200) {
-            const data = response.data as {ids: string[]} ;
+            const data = response.data as { ids: string[]; };
             if (data.ids.length > 0) {
                 const newPersonelList = personelList?.map(personel => {
                     if (data.ids.includes(personel.id)) {
@@ -92,7 +92,7 @@ const JobRequestTab = () => {
                             </ListItem>
                         )}
                     </List>
-                    <Button variant="contained" onClick={updateRequests} disabled={checkedIds.length < 1} color="primary" sx={{ margin: '1rem' }}>
+                    <Button variant='contained' onClick={updateRequests} disabled={checkedIds.length < 1} color='primary' sx={{ margin: '1rem' }}>
                         {personelManagementPage.acceptRequests}
                     </Button>
                 </>

@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { log } from 'next-axiom';
-import { getData } from '../../../lib/axiosRequest';
 import getPersonel from '../../../lib/getPersonel';
 import prismaClient from '../../../lib/prismaClient';
 import { arrayHasNullOrEmptyItem } from '../../../lib/validator';
@@ -43,7 +42,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         const personel = await getPersonel(email);
         if (!personel)
-            return res.status(200).json({ids:[]});
+            return res.status(200).json({ ids: [] });
         const userIds = personel.map((p) => p.id);
 
         return res.status(200).json({ ids: userIds });
