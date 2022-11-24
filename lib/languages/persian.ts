@@ -69,6 +69,7 @@ const persian = {
         successfullyEditUser: 'آفرین! کاربر با موفقیت توسط شما ویرایش شده است.',
         successfullyLogin: 'تبریک می گویم، شما با موفقیت وارد سیستم شدید.',
         successfullyChangeEmail: 'آفرین! ایمیل با موفقیت توسط شما تغییر کرد.لطفا دوباره وارد سیستم شوید.',
+        successfullyAcceptPersonnel: 'آفرین! شما با موفقیت این کاربران را تایید کردید.',
         unauthenticated: 'شما وارد سیستم نشده اید!',
         currentEmailError: 'آدرس ایمیلی که وارد کردید آدرس فعلی شما نیست.',
         chooseOnlyUnsendRequests: 'لطفا فقط درخواست هایی را که ارسال نشده اند انتخاب کنید.',
@@ -216,6 +217,7 @@ const persian = {
         jobRequests: 'درخواست های شغلی',
         reload: 'بارگذاری مجدد',
         acceptRequests: 'پذیرفتن درخواست ها',
+        acceptingRequests: 'در حال پذیرفتن درخواست ها...',
     },
     settingsPage: {
         title: 'تنظیمات',

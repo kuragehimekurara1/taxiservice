@@ -69,6 +69,7 @@ const english = {
         successfullyEditAgency: 'Well done! The agency has been edited successfully by you.',
         successfullyEditUser: 'Well done! The user has been edited successfully by you.',
         successfullyLogin: 'Congratulations, you have successfully logged in.',
+        successfullyAcceptPersonnel: 'Well done! The personnel has been accepted successfully by you.',
         unauthenticated: 'You are not logged in!',
         currentEmailError: 'The email address you entered is not your current one.',
         chooseOnlyUnsendRequests: 'You should only select requests that have not yet been sent.',
@@ -215,6 +216,7 @@ const english = {
         jobRequests: 'Job requests',
         reload: 'Reload',
         acceptRequests: 'Accept requests',
+        acceptingRequests: 'Accepting requests...',
     },
     settingsPage: {
         title: 'Settings',

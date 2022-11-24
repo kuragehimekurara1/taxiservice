@@ -20,6 +20,7 @@ import type { NextPage } from 'next';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { PersonelList } from '../../../types/personel';
 import { getData } from '../../../lib/axiosRequest';
+import { PersonelContext } from '../../../components/context/PersonelContext';
 
 
 const Management: NextPage = () => {
@@ -55,41 +56,44 @@ const Management: NextPage = () => {
 
     return (
         <AuthorizedLayout>
-            <>
-                <Head>
-                    <title>{personelManagementPage.title}</title>
-                </Head>
-                {loadingText !== '' ?
-                    <Paper>
-                        <Loader text={loadingText} />
-                    </Paper>
-                    :
+            <PersonelContext.Provider value={{personelList,setPersonelList}}>
+                <>
+                    <Head>
+                        <title>{personelManagementPage.title}</title>
+                    </Head>
+                    {loadingText !== '' ?
+                        <Paper>
+                            <Loader text={loadingText} />
+                        </Paper>
+                        :
 
-                    <CenterBox dir={settings.direction}>
-                        <Card>
-                            <CardHeader title={personelManagementPage.title} />
-                            <CardContent>
-                                <Tabs onChange={handleTabChange} value={tabID} aria-label='request tabs'>
-                                    <Tab value='personel' label={personelManagementPage.personelList} />
-                                    <Tab value='request' label={personelManagementPage.jobRequests} />
-                                </Tabs>
-                                <TabPanel activeIndex={tabID} index='personel'>
-                                    <PersonelListTab personelList={personelList} />
-                                </TabPanel>
-                                <TabPanel activeIndex={tabID} index='request'>
-                                    <JobRequestTab personelList={personelList} />
-                                </TabPanel>
-                                <CardActions>
-                                    <Button variant='contained' color='primary' onClick={() => setReload(true)}>
-                                        {personelManagementPage.reload}
-                                    </Button>
-                                </CardActions>
-                            </CardContent>
-                        </Card>
-                    </CenterBox>
+                        <CenterBox dir={settings.direction}>
+                            <Card>
+                                <CardHeader title={personelManagementPage.title} />
+                                <CardContent>
+                                    <Tabs onChange={handleTabChange} value={tabID} aria-label='request tabs'>
+                                        <Tab value='personel' label={personelManagementPage.personelList} />
+                                        <Tab value='request' label={personelManagementPage.jobRequests} />
+                                    </Tabs>
+                                    <TabPanel activeIndex={tabID} index='personel'>
+                                        <PersonelListTab personelList={personelList} />
+                                    </TabPanel>
+                                    <TabPanel activeIndex={tabID} index='request'>
+                                        <JobRequestTab />
+                                    </TabPanel>
+                                    <CardActions>
+                                        <Button variant='contained' color='primary' onClick={() => setReload(true)}>
+                                            {personelManagementPage.reload}
+                                        </Button>
+                                    </CardActions>
+                                </CardContent>
 
-                }
-            </>
+                            </Card>
+                        </CenterBox>
+
+                    }
+                </>
+            </PersonelContext.Provider>
         </AuthorizedLayout>
     );
 };
