@@ -66,7 +66,10 @@ const JobRequestTab = () => {
         }
         else {
             const data = response.data as { message: string; };
-            setToast({ id: Math.random(), message: getResponseError(data.message), alertColor: 'error' });
+            if (response.status >= 400 && response.status < 500)
+                setToast({ id: Math.random(), message: getResponseError('HTML_ERROR_404', language), alertColor: 'error' });
+            else
+                setToast({ id: Math.random(), message: getResponseError(data.message, language), alertColor: 'error' });
         }
         setCheckedIds([]);
 
