@@ -56,7 +56,7 @@ const Management: NextPage = () => {
 
     return (
         <AuthorizedLayout>
-            <PersonelContext.Provider value={{personelList,setPersonelList}}>
+            <PersonelContext.Provider value={{ personelList, setPersonelList }}>
                 <>
                     <Head>
                         <title>{personelManagementPage.title}</title>
@@ -76,7 +76,7 @@ const Management: NextPage = () => {
                                         <Tab value='request' label={personelManagementPage.jobRequests} />
                                     </Tabs>
                                     <TabPanel activeIndex={tabID} index='personel'>
-                                        <PersonelListTab personelList={personelList} />
+                                        <PersonelListTab />
                                     </TabPanel>
                                     <TabPanel activeIndex={tabID} index='request'>
                                         <JobRequestTab />

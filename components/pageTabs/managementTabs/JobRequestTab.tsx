@@ -65,11 +65,13 @@ const JobRequestTab = () => {
             setToast({ id: Math.random(), message: notification.successfullyAcceptPersonnel, alertColor: 'success' });
         }
         else {
-            const data = response.data as { message: string; };
-            if (response.status >= 400 && response.status < 500)
-                setToast({ id: Math.random(), message: getResponseError('HTML_ERROR_404', language), alertColor: 'error' });
-            else
-                setToast({ id: Math.random(), message: getResponseError(data.message, language), alertColor: 'error' });
+            const data = response.data as { error: string; };
+            if (data.error) {
+                setToast({ id: Math.random(), message: getResponseError(data.error, language), alertColor: 'error' });
+            }
+            else {
+                setToast({ id: Math.random(), message: getResponseError('HTML_ERROR_' + response.status, language), alertColor: 'error' });
+            }
         }
         setCheckedIds([]);
 
