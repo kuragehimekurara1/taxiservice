@@ -46,7 +46,6 @@ const PersonelListTab = () => {
         };
     });
     useEffect(() => {
-        //if selected item change, set the values
         if (selectedItem !== '' && personel && perviousSelectedItem !== selectedItem) {
             const selectedPersonel = personel?.find((e) => e.id === selectedItem);
             if (selectedPersonel) {
@@ -91,6 +90,10 @@ const PersonelListTab = () => {
     };
     const updateRequests = async () => {
 
+        if (position.trim() === '') {
+            setToast({ id: Math.random(), message: notification.jobPositionRequired, alertColor: 'error' });
+            return;
+        }
         setLoadingText(personelManagementPage.acceptingRequests);
         const response = await postData('/api/personel/updatePermissions', {
             position: position,

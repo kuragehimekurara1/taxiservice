@@ -76,6 +76,7 @@ const english = {
         chooseOnlySendedRequests: 'You should only select requests that have been sent.',
         unselectedRow: 'You have not selected any row.',
         operationSuccess: 'The operation was successful.',
+        jobPositionRequired: 'It is necessary to fill the job position.',
     },
     authorizedLayout: {
         loading: 'Loading...',
@@ -127,7 +128,9 @@ const english = {
         ERR_USER_NOT_FOUND: 'The user is not found.',
         ERR_USER_NOT_VERIFIED: 'The user is not verified.',
         HTML_ERROR_404: 'The page you are looking for does not exist.',
-        UNACCEPTABLE_EMAIL:'The new email address is unacceptable since it is already in use.'
+        UNACCEPTABLE_EMAIL: 'The new email address is unacceptable since it is already in use.',
+        ERR_PERSONEL_NOT_FOUND: 'The personnel is not found.',
+        
     },
     messageDialog: {
         ok: 'Ok',

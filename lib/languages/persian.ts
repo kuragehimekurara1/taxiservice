@@ -76,6 +76,7 @@ const persian = {
         chooseOnlySendedRequests: 'لطفا فقط درخواست هایی را که ارسال شده اند انتخاب کنید.',
         unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
         operationSuccess: 'عملیات با موفقیت انجام شد.',
+        jobPositionRequired:'تکمیل موقعیت شغلی الزامی است.'
 
     },
     authorizedLayout: {
@@ -129,6 +130,7 @@ const persian = {
         ERR_USER_NOT_VERIFIED: 'کاربر تایید نشده است.',
         HTML_ERROR_404: 'صفحه ای که به دنبال آن هستید وجود ندارد.',
         UNACCEPTABLE_EMAIL: 'آدرس ایمیل جدید قابل قبول نیست زیرا در حال حاضر در حال استفاده است.',
+        ERR_PERSONEL_NOT_FOUND: 'شخصی با این مشخصات پیدا نشد.',
     },
     messageDialog: {
         ok: 'تایید',
