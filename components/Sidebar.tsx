@@ -5,7 +5,7 @@ import ExpandableItems from './ExpandableItems';
 import List from '@mui/material/List';
 import SidebarItem from './SidebarItem';
 import { AiFillHome } from 'react-icons/ai';
-import { BiSupport } from 'react-icons/bi';
+import { BiSupport, BiMailSend } from 'react-icons/bi';
 import { FaCar, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiOutlineMail, HiUserGroup } from 'react-icons/hi';
 import { LanguageContext } from './context/LanguageContext';
@@ -15,6 +15,7 @@ import { SidebarContext } from './context/SidebarContext';
 import { TbRoad } from 'react-icons/tb';
 import { useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+
 const Sidebar = () => {
 
     const { sidebarOpen } = useContext(SidebarContext);
@@ -43,14 +44,17 @@ const Sidebar = () => {
                                 <SidebarItem item={{ icon: <MdOutlineEditRoad />, text: sidebar.editAgency, url: '/user/agencies?mode=edit' }} />
                             </ExpandableItems>
                             <ExpandableItems label={sidebar.personnel} isOpen={true} >
-                            <SidebarItem item={{ icon: <MdOutlineGroupAdd />, text: sidebar.jobRequests, url: '/user/personnel/jobRequests' }} />
-                            <SidebarItem item={{ icon: <HiUserGroup />, text: sidebar.managePersonnel, url: '/user/personnel/management' }} />
+                                <SidebarItem item={{ icon: <MdOutlineGroupAdd />, text: sidebar.jobRequests, url: '/user/personnel/jobRequests' }} />
+                                <SidebarItem item={{ icon: <HiUserGroup />, text: sidebar.managePersonnel, url: '/user/personnel/management' }} />
                             </ExpandableItems>
                             <Divider />
                             <SidebarItem item={{ icon: <TbRoad />, text: sidebar.trips, url: '/trips' }} />
                             <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/payments' }} />
                             <Divider />
-                            <SidebarItem item={{ icon: <HiOutlineMail />, text: sidebar.messages, url: '/messages' }} />
+                            <ExpandableItems label={sidebar.messages} isOpen={true} >
+                                <SidebarItem item={{ icon: <HiOutlineMail />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
+                                <SidebarItem item={{ icon: <BiMailSend />, text: sidebar.sent, url: '/user/messages/sent' }} />
+                            </ExpandableItems>
                             <SidebarItem item={{ icon: <RiSettings3Fill />, text: sidebar.settings, url: '/user/settings' }} />
                             <Divider />
                         </>

@@ -28,6 +28,8 @@ model User {
   Agency           Agency[]
   Personel         Personel[]
   Trips            Trips[]
+  sender           Message[]  @relation("senderID")
+  Message          Message[]
 }
 
 model Agency {
@@ -81,4 +83,16 @@ model Trips {
   userId               String
   Personel             Personel @relation(fields: [personelId], references: [id])
   personelId           String
+}
+
+model Message {
+  id        String   @id @default(cuid()) @map("_id")
+  title     String   @db.VarChar(50)
+  message   String   @db.VarChar(300)
+  createdAt DateTime @db.Timestamptz
+  isRead    Boolean  @default(false)
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  sender    User     @relation(name: "senderID", fields: [senderId], references: [id])
+  senderId  String
 }

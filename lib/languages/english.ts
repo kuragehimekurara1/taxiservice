@@ -21,6 +21,8 @@ const english = {
         trips: 'Trips',
         jobRequests: 'Job requests',
         managePersonnel: 'Manage personnel',
+        inbox: 'Inbox',
+        sent: 'Sent',
     },
     languageDialog: {
         title: 'Select the language you would like to use.',
@@ -249,6 +251,12 @@ const english = {
         personnelAccess: 'Request a job and accept the travel offer',
         entrepreneurAccess: 'Access to all agency and personnel activities',
         selectAccountType:'Select the user account type:',
+    },
+    inboxPage: {
+        noMessages: 'No messages',
+        receivingMessages: 'Receiving messages...',
+        reload: 'Reload',
+        title: 'Inbox',
     },
     pageNotFound: {
         title: 'Page not found!',

@@ -21,6 +21,8 @@ const persian = {
         trips: 'سفرها',
         jobRequests: 'درخواست های شغلی',
         managePersonnel: 'مدیریت پرسنل',
+        inbox: 'صندوق ورودی',
+        sent:'ارسال شده',
     },
     languageDialog: {
         title: 'زبانی را که می خواهید استفاده کنید انتخاب کنید.',
@@ -76,7 +78,7 @@ const persian = {
         chooseOnlySendedRequests: 'لطفا فقط درخواست هایی را که ارسال شده اند انتخاب کنید.',
         unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
         operationSuccess: 'عملیات با موفقیت انجام شد.',
-        jobPositionRequired:'تکمیل موقعیت شغلی الزامی است.'
+        jobPositionRequired:'موقعیت شغلی خالی است.'
 
     },
     authorizedLayout: {
@@ -249,6 +251,12 @@ const persian = {
         personnelAccess: 'درخواست کار کنید و پیشنهاد سفر را بپذیرید',
         entrepreneurAccess: 'دسترسی به کلیه فعالیت های آژانس و پرسنل',
         selectAccountType:'نوع حساب کاربری را انتخاب کنید:',
+    },
+    inboxPage: {
+        noMessages: 'هیچ پیامی وجود ندارد',
+        receivingMessages: 'در حال دریافت پیام ها...',
+        reload: 'بارگذاری مجدد',
+        title: 'صندوق ورودی',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',
