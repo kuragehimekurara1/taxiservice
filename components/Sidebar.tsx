@@ -34,9 +34,9 @@ const Sidebar = () => {
     }, [session]);
 
     return (
-        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent' open={sidebarOpen}>
+        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent' PaperProps={{sx:{overflow:'hidden'}}} open={sidebarOpen}>
             <Box>
-                <List dir={direction} >
+                <List dir={direction} sx={{ backgroundColor:'transparent !important'}} >
                     {isUserValid &&
                         <>
                             <ExpandableItems label={sidebar.agenciesManagement} isOpen={true} >

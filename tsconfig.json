@@ -29,6 +29,7 @@
     "lib/Email.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "persian.ts"
   ]
 }

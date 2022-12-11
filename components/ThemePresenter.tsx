@@ -57,6 +57,13 @@ const ThemePresenter = (props: { children: ReactElement | ReactElement[]; }) => 
                             textAlign: 'center',
                         }
                     },
+                    MuiList: {
+                        defaultProps: {
+                            style: {
+                                backgroundColor: prefersDarkMode ? '#1e1e1ea3' : '#ffffff6e',
+                            }
+                        }
+                    },
                     MuiListItemText: {
                         defaultProps: {
                             primaryTypographyProps: {

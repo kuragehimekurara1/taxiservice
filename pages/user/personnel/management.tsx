@@ -25,7 +25,6 @@ import { PersonelContext } from '../../../components/context/PersonelContext';
 
 const Management: NextPage = () => {
     const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
-    // const { setToast } = useContext(ToastContext);
     const { language } = useContext(LanguageContext);
     const [personelList, setPersonelList] = useState<PersonelList | undefined>(undefined);
     const [reload, setReload] = useState(false);

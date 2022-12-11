@@ -15,12 +15,13 @@ const UserInformationTab = () => {
     const [isLeaving, setIsLeaving] = useState(false);
     const [localizationName, setLocalizationName] = useState<string | undefined>(undefined);
     const { language } = useContext(LanguageContext);
-    const { userSettings } = useContext(AllSettingsContext);
+    const { userSettings,setUserSettings } = useContext(AllSettingsContext);
 
     const { userInformationDialog, settings, settingsPage } = language;
 
     const singOut = async () => {
         setIsLeaving(true);
+        setUserSettings(null);
         await signOut({ redirect: false });
     };
 
@@ -56,18 +57,18 @@ const UserInformationTab = () => {
                         <>
                             <Avatar src={publicUrl + '/images/profiles/' + userSettings.profilePicture} sx={{ width: 100, height: 100 }} />
                             <Typography variant='h5'>{userSettings.name}</Typography>
-                            <CenterBox sx={{ alignItems: 'baseline' }}>
+                            <CenterBox sx={{ alignItems: 'flexStart' }}>
                                 <Typography variant='body2'>{userInformationDialog.emailAddress + ':' + userSettings.email}</Typography>
                                 <Typography variant='body2'>{userInformationDialog.accountType + ':' + getAccountType(userSettings.accountType)}</Typography>
                                 <Typography variant='body2'>{userInformationDialog.localization + ':' + localizationName ||  userSettings.localization}</Typography>
                             </CenterBox>
-                            <Button variant='contained' onClick={singOut}>{userInformationDialog.signOut}</Button>
                         </>
                     }
                 </>
                 :
                 <SettingFetcher />
             }
+            <Button variant='contained' onClick={singOut}>{userInformationDialog.signOut}</Button>
         </CenterBox>
     );
 };

@@ -7,7 +7,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import { useContext, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import useTheme from '@mui/system/useTheme';
 import { LanguageContext } from '../../context/LanguageContext';
 import { postData } from '../../../lib/axiosRequest';
 import Loader from '../../controls/Loader';
@@ -25,9 +24,6 @@ const JobRequestTab = () => {
     const { setToast } = useContext(ToastContext);
     const { personelList, setPersonelList } = useContext(PersonelContext);
     const { personelManagementPage, notification } = language;
-
-    const theme = useTheme();
-    const bgColor = theme.palette.mode === 'dark' ? '#1e1e1ea3' : '#ffffff6e';
 
     const [checkedIds, setCheckedIds] = useState<string[]>([]);
     const [loadingText, setLoadingText] = useState<string>('');
@@ -84,7 +80,7 @@ const JobRequestTab = () => {
                 <>
                     <List>
                         {personelList?.filter((e) => e.isRequest === true).map((personel) =>
-                            <ListItem key={personel.id} sx={{ backgroundColor: bgColor, gap: '1rem' }}>
+                            <ListItem key={personel.id} sx={{ gap: '1rem' }}>
                                 <Checkbox onChange={handleToggle(personel.id)} />
                                 <ListItemAvatar>
                                     <Avatar alt={personel.name} src={profilePictureUrl + personel.profilePicture} sx={{ width: 64, height: 64 }} />

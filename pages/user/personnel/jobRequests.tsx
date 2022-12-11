@@ -120,7 +120,7 @@ const JobRequests: NextPage = () => {
                                 <CardHeader title={jobRequestsPage.title} />
                                 <CardContent>
                                     <Box sx={{
-                                        height: 400, width: '100%', minWidth: '100ch',
+                                        height: 400, width: 'min(90vw, 100ch)', minWidth: 'min(90vw, 100ch)',
                                         '& .selected-theme-1': {
                                             bgcolor: sendedColor,
                                         },

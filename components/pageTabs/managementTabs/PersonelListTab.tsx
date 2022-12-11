@@ -10,7 +10,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Loader from '../../controls/Loader';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import useTheme from '@mui/system/useTheme';
 import { LanguageContext } from '../../context/LanguageContext';
 import { PersonelContext } from '../../context/PersonelContext';
 import { ToastContext } from '../../context/ToastContext';
@@ -65,9 +64,6 @@ const PersonelListTab = () => {
     }, [personel, perviousSelectedItem, selectedItem]);
     const activeItem = personel?.find((e) => e.id === selectedItem);
 
-    const theme = useTheme();
-    const bgColor = theme.palette.mode === 'dark' ? '#1e1e1ea3' : '#ffffff6e';
-
     const CheckedListItem = (props: {
         label: string,
         dispatch: Dispatch<SetStateAction<boolean>>;
@@ -78,7 +74,7 @@ const PersonelListTab = () => {
             dispatch(e.target.checked);
         };
         return (
-            <ListItem sx={{ backgroundColor: bgColor, gap: '1rem' }}>
+            <ListItem sx={{gap: '1rem' }}>
                 <Checkbox checked={checked} onChange={handleChanged} />
                 <ListItemText>
                     <Typography variant='body2' component='p' sx={{ textAlign: 'start' }} gutterBottom>

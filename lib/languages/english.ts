@@ -257,6 +257,12 @@ const english = {
         receivingMessages: 'Receiving messages...',
         reload: 'Reload',
         title: 'Inbox',
+        sender: 'Sender',
+        date: 'Date',
+        messageTitle: 'Title',
+        viewed: 'Viewed',
+        yes: 'Yes',
+        no:'No',
     },
     pageNotFound: {
         title: 'Page not found!',

@@ -17,6 +17,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { getResponseError } from '../../../lib/language';
 import { isEmailValid, isPasswordValid } from '../../../lib/validator';
 import { signIn } from 'next-auth/react';
+import { AllSettingsContext } from '../../context/AllSettingsContext';
 const LoginTab = () => {
 
     const [captcha, setCaptcha] = useState<string | false>(false);
@@ -34,6 +35,7 @@ const LoginTab = () => {
     const { setLoginDialogOpen } = useContext(LoginDialogContext);
     const { setMessageDialog } = useContext(MessageDialogContext);
     const { setToast } = useContext(ToastContext);
+    const { setUserSettings } = useContext(AllSettingsContext);
 
     const { loginDialog, notification, messageDialog, submitForm } = language;
     const loginTab = loginDialog.loginTab;
@@ -43,6 +45,8 @@ const LoginTab = () => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
 
         e.preventDefault();
+
+        setUserSettings(null);
 
         if (!validateEmail()) {
             setToast({ id: Date.now(), message: notification.invalidEmailFormat, alertColor: 'error' });

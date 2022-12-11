@@ -257,6 +257,13 @@ const persian = {
         receivingMessages: 'در حال دریافت پیام ها...',
         reload: 'بارگذاری مجدد',
         title: 'صندوق ورودی',
+        sender: 'ارسال کننده',
+        date: 'تاریخ',
+        messageTitle: 'عنوان',
+        viewed: 'مشاهده شده',
+        yes: 'آره',
+        no:'نه',
+
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',
