@@ -13,7 +13,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!session?.user?.email)
         return res.status(401).json({ error: 'ERR_UNAUTHORIZED' });
 
-    const { messageID } = <{ messageID: string; }>req.body;
+    const { messageIds } = <{ messageIds: string[]; }>req.body;
 
     const isValid = !arrayHasNullOrEmptyItem([]);
     if (!isValid)
@@ -31,17 +31,18 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         if (!user)
             return res.status(404).json({ error: 'ERR_USER_NOT_FOUND' });
-        console.log(messageID);
 
-        const message = await prisma.message.update({
+        const message = await prisma.message.updateMany({
             where: {
-                id: messageID
+                id: {
+                    in: messageIds
+                },
+                userId: user.id
             },
             data: {
                 isRead: true
-            },
+            }
         });
-
         if (!message)
             return res.status(404).json({ error: 'ERR_MESSAGE_NOT_FOUND' });
         res.status(200).json({ message: 'OK' });

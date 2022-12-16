@@ -269,7 +269,8 @@ const persian = {
         viewed: 'مشاهده شده',
         yes: 'آره',
         no: 'نه',
-
+        markAsRead: 'علامت گذاری به عنوان خوانده شده',
+        sendingRequest: 'در حال ارسال درخواست...',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',

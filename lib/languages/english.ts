@@ -268,7 +268,9 @@ const english = {
         messageTitle: 'Title',
         viewed: 'Viewed',
         yes: 'Yes',
-        no:'No',
+        no: 'No',
+        markAsRead: 'Mark as read',
+        sendingRequest: 'Sending request...',
     },
 
     pageNotFound: {

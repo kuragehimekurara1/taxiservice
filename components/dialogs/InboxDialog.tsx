@@ -36,7 +36,7 @@ const InboxDialog = (props: { message: MessageData | undefined; onMessageStatusC
     useEffect(() => {
         if (message && reload && !message.isRead) {
             const markAsRead = async () => {
-                const response = await postData(publicUrl + '/api/messages/read', { messageID: message.id });
+                const response = await postData(publicUrl + '/api/messages/read', { messageIds: message.id });
                 setReload(false);
                 if (response && response.status === 200) {
                     setShowWarning(false);

@@ -11,15 +11,15 @@ import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
 import React, { useContext, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import moment from 'moment';
 import type { NextPage } from 'next';
 import { GridColDef, GridEventListener, GridRenderCellParams } from '@mui/x-data-grid';
 import { IoCheckmark, IoCheckmarkDone } from 'react-icons/io5';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { MessageData, MessageDataList } from '../../../types/messages';
-import { getData } from '../../../lib/axiosRequest';
+import { getData, postData } from '../../../lib/axiosRequest';
 import InboxDialog from '../../../components/dialogs/InboxDialog';
 import { InboxDialogContext } from '../../../components/context/InboxDialogContext';
+import dateCounter from '../../../lib/dateFormat';
 
 const Inbox: NextPage = () => {
 
@@ -36,6 +36,9 @@ const Inbox: NextPage = () => {
 
     const [loadingText, setLoadingText] = useState<string>('');
     const [clickedRow, setClickedRow] = useState<MessageData | undefined>(undefined);
+    const [enableRequest, setEnableRequest] = useState(false);
+    const [selectedRow, setSelectedRow] = useState<MessageData[] | undefined>(undefined);
+
     const columns: GridColDef[] = [
         {
             field: 'senderProfilePicture',
@@ -80,7 +83,7 @@ const Inbox: NextPage = () => {
                 <>
                     {params.value &&
                         <>
-                            {moment(params.value).fromNow()}
+                            {dateCounter(params.value, settings.code)}
                         </>
                     }
                 </>
@@ -134,6 +137,25 @@ const Inbox: NextPage = () => {
             setMessages(newMessages);
         }
     };
+    const markMessagesAsRead = async () => {
+        if (selectedRow) {
+            setLoadingText(inboxPage.sendingRequest);
+            const messageIds = selectedRow.map((row) => row.id);
+            const response = await postData(publicUrl + '/api/messages/read', { messageIds: messageIds });
+            setLoadingText('');
+            if (response && response.status === 200) {
+                setEnableRequest(false);
+                const newMessages = messages?.map((message) => {
+                    const index = selectedRow.findIndex((row) => row.id === message.id);
+                    if (index !== -1) {
+                        message.isRead = true;
+                    }
+                    return message;
+                });
+                setMessages(newMessages);
+            }
+        }
+    };
 
     return (
         <AuthorizedLayout>
@@ -150,21 +172,32 @@ const Inbox: NextPage = () => {
                                 :
                                 <>
                                     {messages ?
-                                        <DataGridView
-                                            rows={rowsWithLabel}
-                                            columns={columns}
-                                            pageSize={10}
-                                            rowsPerPageOptions={[10]}
-                                            checkboxSelection
-                                            disableSelectionOnClick
-                                            disableColumnMenu
-                                            onRowClick={handleEvent}
-                                            sx={{
-                                                '& .MuiDataGrid-row': {
-                                                    cursor: 'pointer'
-                                                }
-                                            }}
-                                        />
+                                        <>
+                                            <DataGridView
+                                                rows={rowsWithLabel}
+                                                columns={columns}
+                                                pageSize={10}
+                                                rowsPerPageOptions={[10]}
+                                                checkboxSelection
+                                                disableSelectionOnClick
+                                                disableColumnMenu
+                                                onRowClick={handleEvent}
+                                                onSelectionModelChange={(newSelection) => {
+                                                    const isValid = newSelection.length > 0;
+                                                    const selectedRow = rows?.filter((r) => newSelection.includes(r.id)) || [];
+                                                    setSelectedRow(selectedRow);
+                                                    setEnableRequest(isValid);
+                                                }}
+                                                sx={{
+                                                    '& .MuiDataGrid-row': {
+                                                        cursor: 'pointer'
+                                                    }
+                                                }}
+                                            />
+                                            <Button disabled={!enableRequest} onClick={() => markMessagesAsRead()} >
+                                                {inboxPage.markAsRead}
+                                            </Button>
+                                        </>
                                         :
                                         <Typography variant="body2">
                                             {inboxPage.noMessages}
