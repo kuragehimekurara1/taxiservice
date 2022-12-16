@@ -24,10 +24,12 @@ import { useRouter } from 'next/router';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { Settings } from '../types/settings';
 import { AllSettingsContext } from './context/AllSettingsContext';
+import { InboxDialogContext } from './context/InboxDialogContext';
 
 const GeneralContextHolder = (props: { children: ReactElement | ReactElement[]; }) => {
 
     const [isLanguageDialogOpen, setLanguageDialogOpen] = useState(false);
+    const [isInboxDialogOpen, setInboxDialogOpen] = useState(false);
     const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
     const [messageDialogInfo, setMessageDialog] = useState<MessageDialogProps>({ isMessageDialogOpen: false, message: '', title: '' });
     const [prefersDarkMode, setPrefersDarkMode] = useState(false);
@@ -58,7 +60,9 @@ const GeneralContextHolder = (props: { children: ReactElement | ReactElement[]; 
                                     <MessageDialogContext.Provider value={{ messageDialogInfo, setMessageDialog }}>
                                         <LocalizationInfoContext.Provider value={{ localizationInfo, setLocalizationInfo }}>
                                             <AllSettingsContext.Provider value={{ userSettings, setUserSettings }}>
-                                                {props.children}
+                                                <InboxDialogContext.Provider value={{ isInboxDialogOpen, setInboxDialogOpen }}>
+                                                    {props.children}
+                                                </InboxDialogContext.Provider>
                                             </AllSettingsContext.Provider>
                                         </LocalizationInfoContext.Provider>
                                     </MessageDialogContext.Provider>

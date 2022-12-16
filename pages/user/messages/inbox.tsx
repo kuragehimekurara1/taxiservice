@@ -1,24 +1,25 @@
 import AuthorizedLayout from '../../../components/AuthorizedLayout';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import CenterBox from '../../../components/controls/CenterBox';
+import DataGridView from '../../../components/controls/DataGridView';
 import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
 import React, { useContext, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import type { NextPage } from 'next';
-import { LanguageContext } from '../../../components/context/LanguageContext';
-import { getData } from '../../../lib/axiosRequest';
-import { MessageDataList } from '../../../types/messages';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import { IoCheckmark, IoCheckmarkDone } from 'react-icons/io5';
 import moment from 'moment';
-import { SxProps, Theme } from '@mui/material';
+import type { NextPage } from 'next';
+import { GridColDef, GridEventListener, GridRenderCellParams } from '@mui/x-data-grid';
+import { IoCheckmark, IoCheckmarkDone } from 'react-icons/io5';
+import { LanguageContext } from '../../../components/context/LanguageContext';
+import { MessageData, MessageDataList } from '../../../types/messages';
+import { getData } from '../../../lib/axiosRequest';
+import InboxDialog from '../../../components/dialogs/InboxDialog';
+import { InboxDialogContext } from '../../../components/context/InboxDialogContext';
 
 const Inbox: NextPage = () => {
 
@@ -26,18 +27,18 @@ const Inbox: NextPage = () => {
     const profilePictureUrl = publicUrl + '/images/profiles/';
 
     const { language } = useContext(LanguageContext);
+    const { setInboxDialogOpen } = useContext(InboxDialogContext);
 
     const [messages, setMessages] = useState<MessageDataList | undefined>(undefined);
     const [reload, setReload] = useState(false);
 
-    const { inboxPage, settings, components } = language;
-    const { dataGrid } = components;
+    const { inboxPage, settings } = language;
 
     const [loadingText, setLoadingText] = useState<string>('');
-
+    const [clickedRow, setClickedRow] = useState<MessageData | undefined>(undefined);
     const columns: GridColDef[] = [
         {
-            field: 'profilePicture',
+            field: 'senderProfilePicture',
             headerName: '',
             sortable: false,
             renderCell: (params: GridRenderCellParams<string>) =>
@@ -77,14 +78,9 @@ const Inbox: NextPage = () => {
             minWidth: 150,
             renderCell: (params: GridRenderCellParams<Date>) =>
                 <>
-                    {params.value ?
+                    {params.value &&
                         <>
                             {moment(params.value).fromNow()}
-                        </>
-                        :
-                        <>
-
-
                         </>
                     }
                 </>
@@ -106,44 +102,37 @@ const Inbox: NextPage = () => {
             getDataAsync();
         }
     }, [inboxPage.receivingMessages, messages, publicUrl, reload]);
+    const handleEvent: GridEventListener<'rowClick'> = (params) => {
+        const row = params.row as MessageData;
+        if (row) {
+            setClickedRow(row);
+            setInboxDialogOpen(true);
+        }
+        else
+            setClickedRow(undefined);
+    };
     const rows = messages?.map((message) => {
         return {
             id: message.id,
             sender: message.sender,
             title: message.title,
             date: message.date,
-            profilePicture: message.senderProfilePicture,
+            senderProfilePicture: message.senderProfilePicture,
             message: message.message,
             isRead: message.isRead,
         };
     });
     const rowsWithLabel = JSON.parse(JSON.stringify(rows || []));
-    const fixDataGridViewRtlBug = () => {
-        if (settings.direction === 'ltr')
-            return {} as SxProps<Theme>;
-        else
-            return {
-                '& .MuiDataGrid-columnHeaders': {
-                    transform: 'rotateY(180deg)'
-                },
-                '& .MuiDataGrid-cell': {
-                    transform: 'rotateY(180deg)',
-                    direction: 'rtl'
-
-                },
-                '& .MuiDataGrid-columnHeaderTitleContainer': {
-                    transform: 'rotateY(180deg)',
-                    direction: 'rtl'
-
-                },
-                '& .MuiDataGrid-virtualScroller': {
-                    transform: 'rotateY(180deg)'
-                },
-                '& .MuiDataGrid-footerContainer': {
-                    direction:'rtl'
+    const UpdateMessageStatus = (isRead: boolean) => {
+        if (clickedRow) {
+            const newMessages = messages?.map((message) => {
+                if (message.id === clickedRow.id) {
+                    message.isRead = isRead;
                 }
-
-            } as SxProps<Theme>;
+                return message;
+            });
+            setMessages(newMessages);
+        }
     };
 
     return (
@@ -161,23 +150,21 @@ const Inbox: NextPage = () => {
                                 :
                                 <>
                                     {messages ?
-                                        <Box dir='ltr' sx={{ height: 400, width: 'min(90vw, 100ch)', minWidth: 'min(90vw, 100ch)' }}>
-                                            <DataGrid
-                                                rows={rowsWithLabel}
-                                                columns={columns}
-                                                pageSize={10}
-                                                rowsPerPageOptions={[10]}
-                                                checkboxSelection
-                                                disableSelectionOnClick
-                                                disableColumnMenu
-                                                sx={fixDataGridViewRtlBug()}
-                                                localeText={{
-                                                    noRowsLabel: dataGrid.noData,
-                                                    footerRowSelected: (count: number) => `${count} ${count > 1 ? dataGrid.rowsSelected : dataGrid.rowSelected}`,
-                                                    footerTotalVisibleRows: (visibleCount, totalCount) => `${visibleCount.toLocaleString()} ${dataGrid.of} ${totalCount.toLocaleString()}`,
-                                                }}
-                                            />
-                                        </Box>
+                                        <DataGridView
+                                            rows={rowsWithLabel}
+                                            columns={columns}
+                                            pageSize={10}
+                                            rowsPerPageOptions={[10]}
+                                            checkboxSelection
+                                            disableSelectionOnClick
+                                            disableColumnMenu
+                                            onRowClick={handleEvent}
+                                            sx={{
+                                                '& .MuiDataGrid-row': {
+                                                    cursor: 'pointer'
+                                                }
+                                            }}
+                                        />
                                         :
                                         <Typography variant="body2">
                                             {inboxPage.noMessages}
@@ -194,7 +181,7 @@ const Inbox: NextPage = () => {
                         </Button>
                     </CardActions>
                 </Card>
-
+                <InboxDialog message={clickedRow} onMessageStatusChanged={(isRead) => UpdateMessageStatus(isRead)} />
             </>
         </AuthorizedLayout >
     );

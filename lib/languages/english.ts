@@ -29,6 +29,12 @@ const english = {
         save: 'Save',
         discard: 'Discard',
     },
+    inboxDialog: {
+        ok: 'Ok',
+        errorMarkAsRead: 'There was an error while marking the message as read. If you would like to try again, please click retry.',
+        markingMessageAsRead: 'Marking message as read...',
+        retry: 'Retry',
+    },
     userInformationDialog: {
         signOut: 'Sign out',
         emailAddress: 'Email address',
@@ -264,6 +270,7 @@ const english = {
         yes: 'Yes',
         no:'No',
     },
+
     pageNotFound: {
         title: 'Page not found!',
         error404: 'Error 404',

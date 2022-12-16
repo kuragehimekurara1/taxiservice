@@ -18,6 +18,19 @@ import { UpdateSettings } from '../lib/settings';
 import { VscColorMode } from 'react-icons/vsc';
 import { useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { getData } from '../lib/axiosRequest';
+import useSWR from 'swr';
+import { MessageDataList } from '../types/messages';
+
+const fetcher = async (url: string) => {
+    const data = await getData(url);
+    if (!data)
+        return undefined;
+    if (data.status !== 200)
+        throw new Error(data.statusText);
+    return data.data;
+};
+
 const Navbar = () => {
 
     const { isLanguageDialogOpen, setLanguageDialogOpen } = useContext(LanguageDialogContext);
@@ -32,6 +45,7 @@ const Navbar = () => {
 
     const session = useSession();
     const [isUserValid, setUserValid] = useState(false);
+    const [messages, setMessages] = useState<MessageDataList|undefined>(undefined);
 
     const UpdateTheme = () => {
         setPrefersDarkMode(!prefersDarkMode);
@@ -39,13 +53,23 @@ const Navbar = () => {
         setToast({ id: Date.now(), message: !prefersDarkMode ? notification.darkModeEnabled : notification.darkModeDisabled, alertColor: 'info' });
     };
 
+    const { data } = useSWR(process.env.NEXT_PUBLIC_WEB_URL + '/api/messages/retrieve', fetcher);
+
     useEffect(() => {
         if (session.data)
             setUserValid(true);
         else
             setUserValid(false);
     }, [session]);
-
+    useEffect(() => {
+        if (session.data && data) {
+            const messages = data as MessageDataList;
+            setMessages(messages);
+        }
+    }, [session, data]);
+    const getUnreadMessages = () => {
+        return messages?.filter(message => message.isRead === false).length || 0;
+    };
     return (
         <AppBar position='fixed' dir={direction} sx={{ top: 0, zIndex: (theme: { zIndex: { drawer: number; }; }) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
@@ -69,15 +93,14 @@ const Navbar = () => {
                     {isUserValid &&
                         <IconButton size='large' edge='start' color='inherit' sx={{ mr: 2 }}
                         >
-                            {/* <Badge badgeContent={4} color='warning' sx={{
+                            <Badge badgeContent={getUnreadMessages()} color='warning' sx={{
                                 '& .MuiBadge-standard': {
                                     left: 0,
                                     right: 'auto',
                                 }
                             }}>
                                 <IoMdNotifications />
-                            </Badge> */}
-                            <IoMdNotifications />
+                            </Badge>
 
                         </IconButton>
                     }

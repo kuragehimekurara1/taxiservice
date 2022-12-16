@@ -5,9 +5,9 @@ import ExpandableItems from './ExpandableItems';
 import List from '@mui/material/List';
 import SidebarItem from './SidebarItem';
 import { AiFillHome } from 'react-icons/ai';
-import { BiSupport, BiMailSend } from 'react-icons/bi';
+import { BiEnvelopeOpen, BiSupport, BiPaperPlane } from 'react-icons/bi';
 import { FaCar, FaMoneyBillAlt } from 'react-icons/fa';
-import { HiOutlineMail, HiUserGroup } from 'react-icons/hi';
+import { HiUserGroup } from 'react-icons/hi';
 import { LanguageContext } from './context/LanguageContext';
 import { MdAddBusiness, MdOutlineEditRoad, MdOutlineGroupAdd } from 'react-icons/md';
 import { RiSettings3Fill } from 'react-icons/ri';
@@ -34,9 +34,9 @@ const Sidebar = () => {
     }, [session]);
 
     return (
-        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent' PaperProps={{sx:{overflow:'hidden'}}} open={sidebarOpen}>
+        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent' PaperProps={{ sx: { overflow: 'hidden' } }} open={sidebarOpen}>
             <Box>
-                <List dir={direction} sx={{ backgroundColor:'transparent !important'}} >
+                <List dir={direction} sx={{ backgroundColor: 'transparent !important' }} >
                     {isUserValid &&
                         <>
                             <ExpandableItems label={sidebar.agenciesManagement} isOpen={true} >
@@ -52,8 +52,8 @@ const Sidebar = () => {
                             <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/payments' }} />
                             <Divider />
                             <ExpandableItems label={sidebar.messages} isOpen={true} >
-                                <SidebarItem item={{ icon: <HiOutlineMail />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
-                                <SidebarItem item={{ icon: <BiMailSend />, text: sidebar.sent, url: '/user/messages/sent' }} />
+                                <SidebarItem item={{ icon: <BiEnvelopeOpen />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
+                                <SidebarItem item={{ icon: <BiPaperPlane />, text: sidebar.sent, url: '/user/messages/sent' }} />
                             </ExpandableItems>
                             <SidebarItem item={{ icon: <RiSettings3Fill />, text: sidebar.settings, url: '/user/settings' }} />
                             <Divider />

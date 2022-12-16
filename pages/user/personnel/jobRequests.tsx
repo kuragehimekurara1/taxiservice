@@ -10,12 +10,13 @@ import Loader from '../../../components/controls/Loader';
 import Paper from '@mui/material/Paper';
 import type { NextPage } from 'next';
 import { Box } from '@mui/system';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import { JobRequest } from '../../../types/job-request';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { ToastContext } from '../../../components/context/ToastContext';
 import { getData, postData } from '../../../lib/axiosRequest';
 import { useContext, useEffect, useState } from 'react';
+import DataGridView from '../../../components/controls/DataGridView';
 
 const JobRequests: NextPage = () => {
 
@@ -27,8 +28,7 @@ const JobRequests: NextPage = () => {
     const [jobRequests, setJobRequests] = useState<JobRequest[] | undefined>(undefined);
     const [enableRequest, setEnableRequest] = useState(false);
     const [selectedRow, setSelectedRow] = useState<JobRequest[]>([]);
-    const { jobRequestsPage, settings, components, notification } = language;
-    const { dataGrid } = components;
+    const { jobRequestsPage, settings, notification } = language;
     const [loadingText, setLoadingText] = useState(jobRequestsPage.loading);
     const [reload, setReload] = useState(false);
     useEffect(() => {
@@ -48,7 +48,7 @@ const JobRequests: NextPage = () => {
 
     const columns: GridColDef[] = [
         { field: 'agencyName', headerName: jobRequestsPage.agencyName, sortable: true },
-        { field: 'statusLabel', headerName: jobRequestsPage.status, sortable: true},
+        { field: 'statusLabel', headerName: jobRequestsPage.status, sortable: true },
     ];
     const statusToString = (status: number) => {
         switch (status) {
@@ -119,16 +119,8 @@ const JobRequests: NextPage = () => {
                             <Card dir={settings.direction}>
                                 <CardHeader title={jobRequestsPage.title} />
                                 <CardContent>
-                                    <Box sx={{
-                                        height: 400, width: 'min(90vw, 100ch)', minWidth: 'min(90vw, 100ch)',
-                                        '& .selected-theme-1': {
-                                            bgcolor: sendedColor,
-                                        },
-                                        '& .selected-theme-2': {
-                                            bgcolor: acceptedColor,
-                                        }
-                                    }}>
-                                        <DataGrid
+                                    <Box >
+                                        <DataGridView
                                             rows={rowsWithLabel}
                                             columns={columns}
                                             pageSize={5}
@@ -143,10 +135,13 @@ const JobRequests: NextPage = () => {
                                                 setEnableRequest(isValid);
                                             }}
                                             getRowClassName={(param) => `selected-theme-${param.row.status}`}
-                                            localeText={{
-                                                noRowsLabel: dataGrid.noData,
-                                                footerRowSelected: (count: number) => `${count} ${count > 1 ? dataGrid.rowsSelected : dataGrid.rowSelected}`,
-                                                footerTotalVisibleRows: (visibleCount, totalCount) => `${visibleCount.toLocaleString()} ${dataGrid.of} ${totalCount.toLocaleString()}`,
+                                            sx={{
+                                                '& .selected-theme-1': {
+                                                    bgcolor: sendedColor,
+                                                },
+                                                '& .selected-theme-2': {
+                                                    bgcolor: acceptedColor,
+                                                }
                                             }}
                                         />
                                     </Box>

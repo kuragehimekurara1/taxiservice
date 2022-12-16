@@ -22,7 +22,13 @@ const persian = {
         jobRequests: 'درخواست های شغلی',
         managePersonnel: 'مدیریت پرسنل',
         inbox: 'صندوق ورودی',
-        sent:'ارسال شده',
+        sent: 'ارسال شده',
+    },
+    inboxDialog: {
+        ok: 'باشه',
+        errorMarkAsRead: 'هنگام علامت گذاری پیام به عنوان خوانده شده خطایی روی داد. اگر می‌خواهید دوباره امتحان کنید، لطفاً روی امتحان مجدد کلیک کنید.',
+        markingMessageAsRead: 'در حال علامت گذاری پیام به عنوان خوانده شده...',
+        retry: 'تلاش مجدد',
     },
     languageDialog: {
         title: 'زبانی را که می خواهید استفاده کنید انتخاب کنید.',
@@ -66,7 +72,7 @@ const persian = {
         selectCountry: 'لطفا یک کشور انتخاب کنید.',
         startDateError: 'در ساعات کاری، زمان شروع باید زودتر از زمان پایان باشد.',
         successfullyAddAgency: 'آفرین! آژانس با موفقیت توسط شما ایجاد شده است.',
-        successfullyChangePassword:'آفرین! رمز عبور با موفقیت توسط شما تغییر کرد.',
+        successfullyChangePassword: 'آفرین! رمز عبور با موفقیت توسط شما تغییر کرد.',
         successfullyEditAgency: 'آفرین! آژانس با موفقیت توسط شما ویرایش شده است.',
         successfullyEditUser: 'آفرین! کاربر با موفقیت توسط شما ویرایش شده است.',
         successfullyLogin: 'تبریک می گویم، شما با موفقیت وارد سیستم شدید.',
@@ -78,7 +84,7 @@ const persian = {
         chooseOnlySendedRequests: 'لطفا فقط درخواست هایی را که ارسال شده اند انتخاب کنید.',
         unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
         operationSuccess: 'عملیات با موفقیت انجام شد.',
-        jobPositionRequired:'موقعیت شغلی خالی است.'
+        jobPositionRequired: 'موقعیت شغلی خالی است.'
 
     },
     authorizedLayout: {
@@ -123,7 +129,7 @@ const persian = {
         ERR_SERVICE_UNAVAILABLE: 'سرویس در دسترس نیست.',
         ERR_TOO_MANY_REQUESTS: 'شما بیش از حد مجاز درخواست ارسال کرده اید. لطفا بعدا دوباره تلاش کنید.',
         ERR_UNAUTHORIZED: 'شما اجازه دسترسی به این صفحه را ندارید.',
-        ERR_UNAUTHORIZED_EMAIL:'آدرس ایمیلی که وارد کردید آدرس فعلی شما نیست.',
+        ERR_UNAUTHORIZED_EMAIL: 'آدرس ایمیلی که وارد کردید آدرس فعلی شما نیست.',
         ERR_UNKNOWN: 'یک خطای ناشناخته رخ داده است.',
         ERR_UNKNOWN_AUTHORIZING_USER: 'یک خطای ناشناخته در هنگام تایید حساب کاربری رخ داده است.',
         ERR_UNKNOWN_CREATING_USER: 'یک خطای ناشناخته در هنگام ساخت حسای کاربری رخ داده است.',
@@ -153,7 +159,7 @@ const persian = {
         updatingEmail: 'در حال بروزرسانی ایمیل...',
         loading: 'در حال بارگذاری...',
         updateAndLogin: 'بروزرسانی و خروج',
-        emailUpdateInfo:'هشدار! اگر ایمیل خود را تغییر دهید، از سیستم خارج خواهید شد و باید دوباره با ایمیل جدید خود وارد شوید.',
+        emailUpdateInfo: 'هشدار! اگر ایمیل خود را تغییر دهید، از سیستم خارج خواهید شد و باید دوباره با ایمیل جدید خود وارد شوید.',
     },
     profilePictureDialog: {
         title: 'انتخاب تصویر پروفایل',
@@ -192,11 +198,11 @@ const persian = {
         maximumLengthOfAgencyName: 'حداکثر طول نام آژانس 50 کاراکتر است.',
         editAgency: {
             title: 'ویرایش آژانس',
-            updating:'در حال به روز رسانی آژانس...',
+            updating: 'در حال به روز رسانی آژانس...',
         },
         addNewAgency: {
             title: 'افزودن آژانس جدید',
-            updating:'در حال افزودن آژانس جدید...',
+            updating: 'در حال افزودن آژانس جدید...',
         },
     },
     jobRequestsPage: {
@@ -238,7 +244,7 @@ const persian = {
         fullName: 'نام و نام خانوادگی',
         fullNameDescription: 'لطفا نام و نام خانوادگی خود را وارد کنید.',
         profilePictureDescription: 'با کلیک بر روی تصویر پروفایل خود می توانید آن را تغییر دهید.',
-        advancedSettingsDescription:'برای تغییر رمز عبور و آدرس ایمیل خود، روی "تنظیمات پیشرفته" کلیک کنید.',
+        advancedSettingsDescription: 'برای تغییر رمز عبور و آدرس ایمیل خود، روی "تنظیمات پیشرفته" کلیک کنید.',
         advancedSettings: 'تنظیمات پیشرفته',
         localization: 'بومی سازی',
         localizationWarning: 'بومی سازی به دسترسی دقیق‌تر به داده‌ها کمک می‌کند، بنابراین لطفاً آن را با دقت انتخاب کنید.',
@@ -250,7 +256,7 @@ const persian = {
         customerAccess: 'درخواست سفر کنید یا سفرهای قبلی را مشاهده کنید',
         personnelAccess: 'درخواست کار کنید و پیشنهاد سفر را بپذیرید',
         entrepreneurAccess: 'دسترسی به کلیه فعالیت های آژانس و پرسنل',
-        selectAccountType:'نوع حساب کاربری را انتخاب کنید:',
+        selectAccountType: 'نوع حساب کاربری را انتخاب کنید:',
     },
     inboxPage: {
         noMessages: 'هیچ پیامی وجود ندارد',
@@ -262,7 +268,7 @@ const persian = {
         messageTitle: 'عنوان',
         viewed: 'مشاهده شده',
         yes: 'آره',
-        no:'نه',
+        no: 'نه',
 
     },
     pageNotFound: {
@@ -328,7 +334,7 @@ const persian = {
         confirmPasswordHelperText: 'تایید رمز عبور باید همان رمز عبور وارد شده باشد.',
         currentEmail: 'ایمیل فعلی',
         currentPassword: 'رمز عبور فعلی',
-        currentPasswordHelperText:'رمز عبور فعلی خود را وارد کنید.',
+        currentPasswordHelperText: 'رمز عبور فعلی خود را وارد کنید.',
         email: 'ایمیل',
         emailHelperText: 'به عنوان مثال: e_mail@email.com.',
         newEmail: 'ایمیل جدید',
