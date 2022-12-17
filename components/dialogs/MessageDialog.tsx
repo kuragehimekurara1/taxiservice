@@ -5,40 +5,84 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import { LanguageContext } from '../context/LanguageContext';
+import { useContext, useEffect, useState } from 'react';
+import { MessageData } from '../../types/messages';
 import { MessageDialogContext } from '../context/MessageDialogContext';
-import { useContext } from 'react';
+import Avatar from '@mui/material/Avatar';
+import CenterBox from '../controls/CenterBox';
+import { postData } from '../../lib/axiosRequest';
+import Alert from '@mui/material/Alert';
+import Loader from '../controls/Loader';
+import { customCalender } from '../../lib/dateFormat';
 
-export type MessageDialogProps = {
-    isMessageDialogOpen: boolean;
-    message: string;
-    title: string;
-};
+const MessageDialog = (props: { message: MessageData | undefined; onMessageStatusChanged: (isRead: boolean) => void; }) => {
 
-const MessageDialog = () => {
-
+    const message = props.message;
     const { language } = useContext(LanguageContext);
-    const { messageDialogInfo, setMessageDialog } = useContext(MessageDialogContext);
+    const { isMessageDialogOpen, setMessageDialogOpen } = useContext(MessageDialogContext);
+
+    const [showWarning, setShowWarning] = useState(false);
+    const [reload, setReload] = useState(true);
 
     const { settings, messageDialog } = language;
     const { direction } = settings;
 
+    const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
+    const profilePictureUrl = publicUrl + '/images/profiles/';
+
     const handleClose = () => {
-        setMessageDialog({ isMessageDialogOpen: false, message: '', title: '' });
+        setMessageDialogOpen(false);
     };
+    useEffect(() => {
+        if (message && reload && !message.isRead) {
+            const markAsRead = async () => {
+                const response = await postData(publicUrl + '/api/messages/read', { messageIds: message.id });
+                setReload(false);
+                if (response && response.status === 200) {
+                    setShowWarning(false);
+                    props.onMessageStatusChanged(true);
+                }
+                else
+                    setShowWarning(true);
+            };
+            markAsRead();
+        }
+    }, [message, props, publicUrl, reload]);
+
+    if (message === undefined || !isMessageDialogOpen) return <></>;
 
     return (
         <Dialog
-            open={messageDialogInfo.isMessageDialogOpen}
+            open={isMessageDialogOpen}
             onClose={handleClose}
-            aria-labelledby='language-dialog-title'
-            aria-describedby='language-dialog-description'
+            aria-labelledby='message-dialog-title'
+            aria-describedby='message-dialog-description'
             dir={direction}
         >
-            <DialogTitle id='language-dialog-title'>
-                {messageDialogInfo.title}
+            <DialogTitle id='message-dialog-title'>
+                {message.title}
             </DialogTitle>
             <DialogContent >
-                <Typography variant='subtitle1' component='p'>{messageDialogInfo.message}</Typography>
+                <CenterBox>
+                    <Avatar src={profilePictureUrl + message.senderProfilePicture} sx={{ width: 84, height: 84 }} alt='profile picture' />
+                    <Typography variant='subtitle1' sx={{ direction: 'ltr' }} component='p'>
+                        {`${messageDialog.receiveDate} : ${customCalender(message.date, settings.code)}`}
+                    </Typography>
+                    <Typography variant='subtitle1' component='p'>{message.message}</Typography>
+                    {showWarning &&
+                        <>
+                            {reload ?
+                                <Loader text={messageDialog.markingMessageAsRead} />
+                                :
+                                <>
+                                    <Alert severity='error'>{messageDialog.errorMarkAsRead}</Alert>
+                                    <Button onClick={() => setReload(true)} >{messageDialog.retry}</Button>
+                                </>
+                            }
+
+                        </>
+                    }
+                </CenterBox>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} autoFocus>{messageDialog.ok}</Button>

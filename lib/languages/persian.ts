@@ -24,11 +24,12 @@ const persian = {
         inbox: 'صندوق ورودی',
         sent: 'ارسال شده',
     },
-    inboxDialog: {
+    messageDialog: {
         ok: 'باشه',
         errorMarkAsRead: 'هنگام علامت گذاری پیام به عنوان خوانده شده خطایی روی داد. اگر می‌خواهید دوباره امتحان کنید، لطفاً روی امتحان مجدد کلیک کنید.',
         markingMessageAsRead: 'در حال علامت گذاری پیام به عنوان خوانده شده...',
         retry: 'تلاش مجدد',
+        receiveDate: 'تاریخ دریافت',
     },
     languageDialog: {
         title: 'زبانی را که می خواهید استفاده کنید انتخاب کنید.',
@@ -140,7 +141,7 @@ const persian = {
         UNACCEPTABLE_EMAIL: 'آدرس ایمیل جدید قابل قبول نیست زیرا در حال حاضر در حال استفاده است.',
         ERR_PERSONEL_NOT_FOUND: 'شخصی با این مشخصات پیدا نشد.',
     },
-    messageDialog: {
+    informationDialog: {
         ok: 'تایید',
         userCreatedSuccessfully: {
             title: 'تبریک!',
@@ -271,6 +272,9 @@ const persian = {
         no: 'نه',
         markAsRead: 'علامت گذاری به عنوان خوانده شده',
         sendingRequest: 'در حال ارسال درخواست...',
+    },
+    sendsPage: {
+        title:'ارسال شده',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',

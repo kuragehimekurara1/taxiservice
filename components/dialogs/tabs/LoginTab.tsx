@@ -10,7 +10,7 @@ import React, { useContext, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { LanguageContext } from '../../context/LanguageContext';
 import { LoginDialogContext } from '../../context/LoginDialogContext';
-import { MessageDialogContext } from '../../context/MessageDialogContext';
+import { InformationDialogContext } from '../../context/InformationDialogContext';
 import { postData, SigninResult } from '../../../lib/axiosRequest';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ToastContext } from '../../context/ToastContext';
@@ -33,13 +33,13 @@ const LoginTab = () => {
     const { language } = useContext(LanguageContext);
     const { prefersDarkMode } = useContext(ThemeContext);
     const { setLoginDialogOpen } = useContext(LoginDialogContext);
-    const { setMessageDialog } = useContext(MessageDialogContext);
+    const { setInformationDialog } = useContext(InformationDialogContext);
     const { setToast } = useContext(ToastContext);
     const { setUserSettings } = useContext(AllSettingsContext);
 
-    const { loginDialog, notification, messageDialog, submitForm } = language;
+    const { loginDialog, notification, informationDialog, submitForm } = language;
     const loginTab = loginDialog.loginTab;
-    const passwordReadyReset = messageDialog.passwordReadyReset;
+    const passwordReadyReset = informationDialog.passwordReadyReset;
     const { direction } = language.settings;
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -119,7 +119,7 @@ const LoginTab = () => {
             }
             if (response.status === 200) {
                 setLoginDialogOpen(false);
-                setMessageDialog({ isMessageDialogOpen: true, title: passwordReadyReset.title, message: passwordReadyReset.message });
+                setInformationDialog({ isInformationDialogOpen: true, title: passwordReadyReset.title, message: passwordReadyReset.message });
             }
             else {
                 let { error } = response.data as { error: string; };

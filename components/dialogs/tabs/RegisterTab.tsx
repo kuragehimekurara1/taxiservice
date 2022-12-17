@@ -10,7 +10,7 @@ import React, { useContext, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { LanguageContext } from '../../context/LanguageContext';
 import { LoginDialogContext } from '../../context/LoginDialogContext';
-import { MessageDialogContext } from '../../context/MessageDialogContext';
+import { InformationDialogContext } from '../../context/InformationDialogContext';
 import { postData } from '../../../lib/axiosRequest';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ToastContext } from '../../context/ToastContext';
@@ -34,13 +34,13 @@ const RegisterTab = () => {
     const { language } = useContext(LanguageContext);
     const { prefersDarkMode } = useContext(ThemeContext);
     const { setLoginDialogOpen } = useContext(LoginDialogContext);
-    const { setMessageDialog } = useContext(MessageDialogContext);
+    const { setInformationDialog } = useContext(InformationDialogContext);
     const { setToast } = useContext(ToastContext);
 
-    const { loginDialog, notification, messageDialog, submitForm } = language;
+    const { loginDialog, notification, informationDialog, submitForm } = language;
     const registerTab = loginDialog.registerTab;
     const { direction } = language.settings;
-    const successfullyRegister = messageDialog.userCreatedSuccessfully;
+    const successfullyRegister = informationDialog.userCreatedSuccessfully;
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -71,7 +71,7 @@ const RegisterTab = () => {
             }
             if (response.status === 200) {
                 setLoginDialogOpen(false);
-                setMessageDialog({ isMessageDialogOpen: true, title: successfullyRegister.title, message: successfullyRegister.message });
+                setInformationDialog({ isInformationDialogOpen: true, title: successfullyRegister.title, message: successfullyRegister.message });
             }
             else {
                 let { error } = response.data as { error: string; };

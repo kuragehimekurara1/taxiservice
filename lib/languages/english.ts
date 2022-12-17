@@ -29,11 +29,12 @@ const english = {
         save: 'Save',
         discard: 'Discard',
     },
-    inboxDialog: {
+    messageDialog: {
         ok: 'Ok',
         errorMarkAsRead: 'There was an error while marking the message as read. If you would like to try again, please click retry.',
         markingMessageAsRead: 'Marking message as read...',
         retry: 'Retry',
+        receiveDate: 'Receive date',
     },
     userInformationDialog: {
         signOut: 'Sign out',
@@ -140,7 +141,7 @@ const english = {
         ERR_PERSONEL_NOT_FOUND: 'The personnel is not found.',
         
     },
-    messageDialog: {
+    informationDialog: {
         ok: 'Ok',
         userCreatedSuccessfully: {
             title: 'Congratulations!',
@@ -272,7 +273,9 @@ const english = {
         markAsRead: 'Mark as read',
         sendingRequest: 'Sending request...',
     },
-
+    sendsPage: {
+        title: 'Sends',
+    },
     pageNotFound: {
         title: 'Page not found!',
         error404: 'Error 404',

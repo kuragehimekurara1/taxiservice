@@ -53,7 +53,7 @@ const Sidebar = () => {
                             <Divider />
                             <ExpandableItems label={sidebar.messages} isOpen={true} >
                                 <SidebarItem item={{ icon: <BiEnvelopeOpen />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
-                                <SidebarItem item={{ icon: <BiPaperPlane />, text: sidebar.sent, url: '/user/messages/sent' }} />
+                                <SidebarItem item={{ icon: <BiPaperPlane />, text: sidebar.sent, url: '/user/messages/sends' }} />
                             </ExpandableItems>
                             <SidebarItem item={{ icon: <RiSettings3Fill />, text: sidebar.settings, url: '/user/settings' }} />
                             <Divider />

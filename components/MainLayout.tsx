@@ -3,7 +3,7 @@ import getSettings from '../lib/settings';
 import Image from 'next/image';
 import LanguageDialog from './dialogs/LanguageDialog';
 import LoginDialog from './dialogs/LoginDialog';
-import MessageDialog, { MessageDialogProps } from './dialogs/MessageDialog';
+import InformationDialog, { InformationDialogProps } from './dialogs/InformationDialog';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import ThemePresenter from './ThemePresenter';
@@ -13,7 +13,7 @@ import { LanguageContext } from './context/LanguageContext';
 import { LanguageDialogContext } from './context/LanguageDialogContext';
 import { LocalizationInfoContext } from './context/LocalizationInfoContext';
 import { LoginDialogContext } from './context/LoginDialogContext';
-import { MessageDialogContext } from './context/MessageDialogContext';
+import { InformationDialogContext } from './context/InformationDialogContext';
 import { ReactElement, useEffect, useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { SidebarContext } from './context/SidebarContext';
@@ -24,14 +24,14 @@ import { useRouter } from 'next/router';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { Settings } from '../types/settings';
 import { AllSettingsContext } from './context/AllSettingsContext';
-import { InboxDialogContext } from './context/InboxDialogContext';
+import { MessageDialogContext } from './context/MessageDialogContext';
 
 const GeneralContextHolder = (props: { children: ReactElement | ReactElement[]; }) => {
 
     const [isLanguageDialogOpen, setLanguageDialogOpen] = useState(false);
-    const [isInboxDialogOpen, setInboxDialogOpen] = useState(false);
+    const [isMessageDialogOpen, setMessageDialogOpen] = useState(false);
     const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
-    const [messageDialogInfo, setMessageDialog] = useState<MessageDialogProps>({ isMessageDialogOpen: false, message: '', title: '' });
+    const [messageDialogInfo, setInformationDialog] = useState<InformationDialogProps>({ isInformationDialogOpen: false, message: '', title: '' });
     const [prefersDarkMode, setPrefersDarkMode] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [localizationInfo, setLocalizationInfo] = useState<LocalizationInfoType>(defaultLocalizationInfo);
@@ -57,15 +57,15 @@ const GeneralContextHolder = (props: { children: ReactElement | ReactElement[]; 
                         <LanguageContext.Provider value={{ language: language }}>
                             <LoginDialogContext.Provider value={{ isLoginDialogOpen, setLoginDialogOpen }}>
                                 <ToastContext.Provider value={{ toast, setToast }} >
-                                    <MessageDialogContext.Provider value={{ messageDialogInfo, setMessageDialog }}>
+                                    <InformationDialogContext.Provider value={{ messageDialogInfo, setInformationDialog }}>
                                         <LocalizationInfoContext.Provider value={{ localizationInfo, setLocalizationInfo }}>
                                             <AllSettingsContext.Provider value={{ userSettings, setUserSettings }}>
-                                                <InboxDialogContext.Provider value={{ isInboxDialogOpen, setInboxDialogOpen }}>
+                                                <MessageDialogContext.Provider value={{ isMessageDialogOpen, setMessageDialogOpen }}>
                                                     {props.children}
-                                                </InboxDialogContext.Provider>
+                                                </MessageDialogContext.Provider>
                                             </AllSettingsContext.Provider>
                                         </LocalizationInfoContext.Provider>
-                                    </MessageDialogContext.Provider>
+                                    </InformationDialogContext.Provider>
                                 </ToastContext.Provider>
                             </LoginDialogContext.Provider>
                         </LanguageContext.Provider>
@@ -92,7 +92,7 @@ const MainLayout = (props: { children: ReactElement; }) => {
                     </CenterBox>
                 </CenterBox >
                 <ToastHandler />
-                <MessageDialog />
+                <InformationDialog />
             </ThemePresenter>
         </GeneralContextHolder >
     );
