@@ -124,17 +124,6 @@ const Sends: NextPage = () => {
         };
     });
     const rowsWithLabel = JSON.parse(JSON.stringify(rows || []));
-    const UpdateMessageStatus = (isRead: boolean) => {
-        if (clickedRow) {
-            const newMessages = messages?.map((message) => {
-                if (message.id === clickedRow.id) {
-                    message.isRead = isRead;
-                }
-                return message;
-            });
-            setMessages(newMessages);
-        }
-    };
 
     return (
         <AuthorizedLayout>
@@ -183,7 +172,7 @@ const Sends: NextPage = () => {
                         </Button>
                     </CardActions>
                 </Card>
-                <MessageDialog message={clickedRow} onMessageStatusChanged={(isRead) => UpdateMessageStatus(isRead)} />
+                <MessageDialog message={clickedRow} skipRead={true} />
             </>
         </AuthorizedLayout >
     );

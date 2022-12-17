@@ -214,7 +214,8 @@ const Inbox: NextPage = () => {
                         </Button>
                     </CardActions>
                 </Card>
-                <MessageDialog message={clickedRow} onMessageStatusChanged={(isRead) => UpdateMessageStatus(isRead)} />
+                <MessageDialog message={clickedRow} skipRead={false}
+                    onMessageStatusChanged={(isRead) => UpdateMessageStatus(isRead)} />
             </>
         </AuthorizedLayout >
     );

@@ -14,10 +14,14 @@ import { postData } from '../../lib/axiosRequest';
 import Alert from '@mui/material/Alert';
 import Loader from '../controls/Loader';
 import { customCalender } from '../../lib/dateFormat';
+export type MessageDialogProps = {
+    message: MessageData | undefined;
+    skipRead: boolean;
+    onMessageStatusChanged?: (isRead: boolean) => void;
+};
+const MessageDialog = (props: MessageDialogProps) => {
 
-const MessageDialog = (props: { message: MessageData | undefined; onMessageStatusChanged: (isRead: boolean) => void; }) => {
-
-    const message = props.message;
+    const { message, skipRead, onMessageStatusChanged } = props;
     const { language } = useContext(LanguageContext);
     const { isMessageDialogOpen, setMessageDialogOpen } = useContext(MessageDialogContext);
 
@@ -34,20 +38,21 @@ const MessageDialog = (props: { message: MessageData | undefined; onMessageStatu
         setMessageDialogOpen(false);
     };
     useEffect(() => {
-        if (message && reload && !message.isRead) {
+        if (message && reload && !message.isRead && !skipRead) {
             const markAsRead = async () => {
                 const response = await postData(publicUrl + '/api/messages/read', { messageIds: message.id });
                 setReload(false);
                 if (response && response.status === 200) {
                     setShowWarning(false);
-                    props.onMessageStatusChanged(true);
+                    if (onMessageStatusChanged)
+                        onMessageStatusChanged(true);
                 }
                 else
                     setShowWarning(true);
             };
             markAsRead();
         }
-    }, [message, props, publicUrl, reload]);
+    }, [message, onMessageStatusChanged, props, publicUrl, reload, skipRead]);
 
     if (message === undefined || !isMessageDialogOpen) return <></>;
 
