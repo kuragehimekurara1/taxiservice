@@ -75,7 +75,7 @@ const CreateMessage: NextPage = () => {
             return;
         }
         const data = { title: title, message: message, users: selectedUsers.map(u => u.id) };
-        setLoadingText('sending message...');
+        setLoadingText(createMessagePage.sendingMessage);
         const response = await postData(publicUrl + '/api/messages/create', data);
         setLoadingText('');
         if (!response) {

@@ -288,7 +288,8 @@ const english = {
         Receiver: 'Receiver',
         messageTitle: 'Title',
         messageContent: 'Content',
-        send:'Send',
+        send: 'Send',
+        sendingMessage: 'Sending message...',
     },
     pageNotFound: {
         title: 'Page not found!',

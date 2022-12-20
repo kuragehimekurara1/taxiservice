@@ -288,6 +288,7 @@ const persian = {
         messageTitle: 'عنوان',
         messageContent: 'متن پیام',
         send: 'ارسال',
+        sendingMessage: 'در حال ارسال پیام...',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',
