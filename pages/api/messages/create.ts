@@ -13,7 +13,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!session?.user?.email)
         return res.status(401).json({ error: 'ERR_UNAUTHORIZED' });
 
-    const { isRead, targetUserId } = <{ isRead: boolean, targetUserId:string; }>req.body;
+    const { users } = <{ users: string[]; }>req.body;
     let { title, message } = <{ title: string, message: string; }>req.body;
 
     const isValid = !arrayHasNullOrEmptyItem([]);
@@ -38,13 +38,39 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         if (!user)
             return res.status(404).json({ error: 'ERR_USER_NOT_FOUND' });
-        const targetUser = await prisma.user.findFirst({
+
+        const usersTo = await prisma.user.findMany({
             where: {
-                id: targetUserId
+                id: {
+                    in: users
+                }
             }
         });
-        if (!targetUser)
-            return res.status(404).json({ error: 'ERR_TARGET_USER_NOT_FOUND' });
+
+        if (usersTo.length === 0)
+            return res.status(404).json({ error: 'ERR_USERS_NOT_FOUND' });
+
+        for (let i = 0; i < usersTo.length; i++) {
+            const userTo = usersTo[i];
+            await prisma.message.create({
+                data: {
+                    title: title,
+                    message: message,
+                    createdAt: new Date(),
+                    isRead: false,
+                    sender: {
+                        connect: {
+                            id: user.id
+                        },
+                    },
+                    User: {
+                        connect: {
+                            id: userTo.id
+                        }
+                    }
+                }
+            });
+        }
         res.status(200).json({ message: 'OK' });
 
     }

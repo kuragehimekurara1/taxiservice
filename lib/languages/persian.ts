@@ -21,6 +21,7 @@ const persian = {
         trips: 'سفرها',
         jobRequests: 'درخواست های شغلی',
         managePersonnel: 'مدیریت پرسنل',
+        createMessage: 'ایجاد پیام',
         inbox: 'صندوق ورودی',
         sent: 'ارسال شده',
     },
@@ -29,7 +30,7 @@ const persian = {
         errorMarkAsRead: 'هنگام علامت گذاری پیام به عنوان خوانده شده خطایی روی داد. اگر می‌خواهید دوباره امتحان کنید، لطفاً روی امتحان مجدد کلیک کنید.',
         markingMessageAsRead: 'در حال علامت گذاری پیام به عنوان خوانده شده...',
         retry: 'تلاش مجدد',
-        receiveDate: 'تاریخ دریافت',
+        createdDate: 'تاریخ ایجاد',
     },
     languageDialog: {
         title: 'زبانی را که می خواهید استفاده کنید انتخاب کنید.',
@@ -85,8 +86,10 @@ const persian = {
         chooseOnlySendedRequests: 'لطفا فقط درخواست هایی را که ارسال شده اند انتخاب کنید.',
         unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
         operationSuccess: 'عملیات با موفقیت انجام شد.',
-        jobPositionRequired: 'موقعیت شغلی خالی است.'
-
+        jobPositionRequired: 'موقعیت شغلی خالی است.',
+        messageAndTitleRequired:'عنوان و محتوای پیام باید قبل از ارسال پیام پر شود.',
+        notSelectedUser: 'ای وای! به نظر می رسد هیچ کاربری انتخاب نشده است.',
+        messageSent: 'آفرین! ما با موفقیت پیام شما را ارسال کردیم.',
     },
     authorizedLayout: {
         loading: 'در حال بارگذاری...',
@@ -274,7 +277,17 @@ const persian = {
         sendingRequest: 'در حال ارسال درخواست...',
     },
     sendsPage: {
-        title:'ارسال شده',
+        title: 'ارسال شده',
+    },
+    createMessagePage: {
+        title: 'ارسال پیام',
+        receivingUsers: 'در حال دریافت کاربران...',
+        noUser: 'هیچ کاربری وجود ندارد!',
+        reload: 'بارگذاری مجدد کاربران',
+        Receiver: 'گیرنده',
+        messageTitle: 'عنوان',
+        messageContent: 'متن پیام',
+        send: 'ارسال',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',

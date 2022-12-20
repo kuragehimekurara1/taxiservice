@@ -70,8 +70,9 @@ const MessageDialog = (props: MessageDialogProps) => {
             <DialogContent >
                 <CenterBox>
                     <Avatar src={profilePictureUrl + message.senderProfilePicture} sx={{ width: 84, height: 84 }} alt='profile picture' />
+                    <Typography variant='h6' component='p'>{message.sender}</Typography>
                     <Typography variant='subtitle1' sx={{ direction: 'ltr' }} component='p'>
-                        {`${messageDialog.receiveDate} : ${customCalender(message.date, settings.code)}`}
+                        {`${messageDialog.createdDate} : ${customCalender(message.date, settings.code)}`}
                     </Typography>
                     <Typography variant='subtitle1' component='p'>{message.message}</Typography>
                     {showWarning &&

@@ -37,7 +37,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         if (!users)
             return res.status(404).json({ error: 'ERR_USERS_NOT_FOUND' });
-        res.status(200).json({ users: users });
+        res.status(200).json(users);
 
     }
     catch (error) {

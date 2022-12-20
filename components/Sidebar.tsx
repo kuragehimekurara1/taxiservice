@@ -5,16 +5,17 @@ import ExpandableItems from './ExpandableItems';
 import List from '@mui/material/List';
 import SidebarItem from './SidebarItem';
 import { AiFillHome } from 'react-icons/ai';
-import { BiEnvelopeOpen, BiSupport, BiPaperPlane } from 'react-icons/bi';
+import { BiSupport, BiPaperPlane } from 'react-icons/bi';
 import { FaCar, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
 import { LanguageContext } from './context/LanguageContext';
 import { MdAddBusiness, MdOutlineEditRoad, MdOutlineGroupAdd } from 'react-icons/md';
-import { RiSettings3Fill } from 'react-icons/ri';
+import { RiMailAddLine, RiSettings3Fill } from 'react-icons/ri';
 import { SidebarContext } from './context/SidebarContext';
 import { TbRoad } from 'react-icons/tb';
 import { useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { BsMailbox } from 'react-icons/bs';
 
 const Sidebar = () => {
 
@@ -52,7 +53,8 @@ const Sidebar = () => {
                             <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/payments' }} />
                             <Divider />
                             <ExpandableItems label={sidebar.messages} isOpen={true} >
-                                <SidebarItem item={{ icon: <BiEnvelopeOpen />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
+                                <SidebarItem item={{ icon: <RiMailAddLine />, text: sidebar.createMessage, url: '/user/messages/create' }} />
+                                <SidebarItem item={{ icon: <BsMailbox />, text: sidebar.inbox, url: '/user/messages/inbox' }} />
                                 <SidebarItem item={{ icon: <BiPaperPlane />, text: sidebar.sent, url: '/user/messages/sends' }} />
                             </ExpandableItems>
                             <SidebarItem item={{ icon: <RiSettings3Fill />, text: sidebar.settings, url: '/user/settings' }} />

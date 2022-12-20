@@ -5,7 +5,7 @@ export type SigninResult = {
     ok: boolean;
     url: string | null;
 };
-const timeout = 10000;
+const timeout = 100000;
 export const postData = async (url: string, data: unknown) => {
     try {
         const response = await axios.post(url, JSON.stringify(data), {

@@ -21,6 +21,7 @@ const english = {
         trips: 'Trips',
         jobRequests: 'Job requests',
         managePersonnel: 'Manage personnel',
+        createMessage: 'Create message',
         inbox: 'Inbox',
         sent: 'Sent',
     },
@@ -34,7 +35,7 @@ const english = {
         errorMarkAsRead: 'There was an error while marking the message as read. If you would like to try again, please click retry.',
         markingMessageAsRead: 'Marking message as read...',
         retry: 'Retry',
-        receiveDate: 'Receive date',
+        createdDate: 'Created date',
     },
     userInformationDialog: {
         signOut: 'Sign out',
@@ -86,6 +87,9 @@ const english = {
         unselectedRow: 'You have not selected any row.',
         operationSuccess: 'The operation was successful.',
         jobPositionRequired: 'It is necessary to fill the job position.',
+        messageAndTitleRequired: 'The title and message content must be filled out before sending a message.',
+        notSelectedUser: 'Oh, my! There seems to be no user selected.',
+        messageSent: 'Well done! We have successfully sent your message.',
     },
     authorizedLayout: {
         loading: 'Loading...',
@@ -275,6 +279,16 @@ const english = {
     },
     sendsPage: {
         title: 'Sends',
+    },
+    createMessagePage: {
+        title: 'Message creation',
+        receivingUsers: 'Receiving users...',
+        noUser: 'there is no user!',
+        reload: 'Reload users',
+        Receiver: 'Receiver',
+        messageTitle: 'Title',
+        messageContent: 'Content',
+        send:'Send',
     },
     pageNotFound: {
         title: 'Page not found!',

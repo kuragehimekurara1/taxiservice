@@ -41,7 +41,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return {
                 id: message.id,
                 title: message.title,
-                message: message.title,
+                message: message.message,
                 isRead: message.isRead,
                 date: message.createdAt,
                 sender: message.sender.name,
