@@ -65,11 +65,11 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json({ message: 'OK' });
 
-}
+    }
     catch (e) {
-    log.error(JSON.stringify(e));
-    return res.status(500).json({ error: 'ERR_UNKNOWN' });
-}
+        log.error(JSON.stringify(e));
+        return res.status(500).json({ error: 'ERR_UNKNOWN' });
+    }
 };
 
 
