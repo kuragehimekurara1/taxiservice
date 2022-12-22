@@ -50,34 +50,26 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (usersTo.length === 0)
             return res.status(404).json({ error: 'ERR_USERS_NOT_FOUND' });
 
-        for (let i = 0; i < usersTo.length; i++) {
-            const userTo = usersTo[i];
-            await prisma.message.create({
-                data: {
+        await prisma.message.createMany({
+            data: users.map((id) => {
+                return {
                     title: title,
                     message: message,
                     createdAt: new Date(),
                     isRead: false,
-                    sender: {
-                        connect: {
-                            id: user.id
-                        },
-                    },
-                    User: {
-                        connect: {
-                            id: userTo.id
-                        }
-                    }
-                }
-            });
-        }
+                    senderId: user.id,
+                    userId: id
+                };
+            })
+        });
+
         res.status(200).json({ message: 'OK' });
 
-    }
+}
     catch (e) {
-        log.error(JSON.stringify(e));
-        return res.status(500).json({ error: 'ERR_UNKNOWN' });
-    }
+    log.error(JSON.stringify(e));
+    return res.status(500).json({ error: 'ERR_UNKNOWN' });
+}
 };
 
 

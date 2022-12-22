@@ -25,4 +25,13 @@ export const getResponseError = (error: string, language = getLanguage('en')) =>
     }
     return responseError.ERR_UNKNOWN;
 };
+export const getSystemMessage = (message: string, language = getLanguage('en')) => {
+    const { systemMessages } = language;
+    for (const [key, value] of Object.entries(systemMessages)) {
+        if (key === message) {
+            return value;
+        }
+    }
+    return message;
+};
 export default getLanguage;

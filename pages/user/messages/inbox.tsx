@@ -9,7 +9,7 @@ import CenterBox from '../../../components/controls/CenterBox';
 import DataGridView from '../../../components/controls/DataGridView';
 import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState ,useMemo} from 'react';
 import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import { GridColDef, GridEventListener, GridRenderCellParams } from '@mui/x-data-grid';
@@ -20,6 +20,7 @@ import { getData, postData } from '../../../lib/axiosRequest';
 import MessageDialog from '../../../components/dialogs/MessageDialog';
 import { MessageDialogContext } from '../../../components/context/MessageDialogContext';
 import dateCounter from '../../../lib/dateFormat';
+import { getSystemMessage } from '../../../lib/language';
 
 const Inbox: NextPage = () => {
 
@@ -105,6 +106,8 @@ const Inbox: NextPage = () => {
             getDataAsync();
         }
     }, [inboxPage.receivingMessages, messages, publicUrl, reload]);
+
+
     const handleEvent: GridEventListener<'rowClick'> = (params) => {
         const row = params.row as MessageData;
         if (row) {
@@ -114,17 +117,18 @@ const Inbox: NextPage = () => {
         else
             setClickedRow(undefined);
     };
-    const rows = messages?.map((message) => {
+    const rows = useMemo(()=> messages?.map((message) => {
         return {
             id: message.id,
             sender: message.sender,
-            title: message.title,
+            title: getSystemMessage( message.title, language),
+            message: getSystemMessage(message.message, language),
             date: message.date,
             senderProfilePicture: message.senderProfilePicture,
-            message: message.message,
             isRead: message.isRead,
         };
-    });
+    }), [messages, language]);
+
     const rowsWithLabel = JSON.parse(JSON.stringify(rows || []));
     const UpdateMessageStatus = (isRead: boolean) => {
         if (clickedRow) {

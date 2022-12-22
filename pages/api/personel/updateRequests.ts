@@ -55,7 +55,35 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     };
                 })
             });
+            const agencies = await prisma.agency.findMany({
+                where: {
+                    id: {
+                        in: ids
+                    }
+                },
+                select: {
+                    userId: true
+                }
+            });
+            const agencyUserIds = agencies.map((a) => a.userId);
+
+            await prisma.message.createMany({
+                data: agencyUserIds.map((id) => {
+                    return {
+                        title: 'JOB_REQUEST_TITLE',
+                        message: 'JOB_REQUEST_MESSAGE',
+                        createdAt: new Date(),
+                        isRead: false,
+                        senderId: id,
+                        userId: id
+
+                    };
+                })
+            });
+
+
         }
+
         const personel = await prisma.personel.findMany({
             where: {
                 userId: user.id

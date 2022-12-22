@@ -27,6 +27,7 @@ import { UpdateSettings } from '../lib/settings';
 import { VscColorMode } from 'react-icons/vsc';
 import { getData } from '../lib/axiosRequest';
 import { useSession } from 'next-auth/react';
+import { getSystemMessage } from '../lib/language';
 
 const fetcher = async (url: string) => {
     const data = await getData(url);
@@ -50,8 +51,7 @@ const Navbar = () => {
     const { sidebarOpen, setSidebarOpen } = useContext(SidebarContext);
 
     const { direction } = language.settings;
-    const notification = language.notification;
-
+    const { notification,settings } = language;
     const session = useSession();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isUserValid, setUserValid] = useState(false);
@@ -125,17 +125,17 @@ const Navbar = () => {
                                     <IoMdNotifications />
                                 </Badge>
                             </IconButton>
-                            <Menu open={open} anchorEl={anchorEl} onClose={handleClose}>
+                            <Menu dir={settings.direction} open={open} anchorEl={anchorEl} onClose={handleClose}>
                                 {unreadMessages?.map(message => {
                                     return (
-                                        <MenuItem key={message.id} onClick={redirectToInbox}>
+                                        <MenuItem  key={message.id} onClick={redirectToInbox}>
                                             <Link href={'/user/messages/inbox'}>
-                                                <Typography component={'ul'} sx={{display:'contents'}}>
+                                                <Typography component={'ul'} sx={{ display: 'contents'}}>
                                                     <ListItemAvatar>
                                                         <Avatar alt={message.title} src={profilePictureUrl + message.senderProfilePicture}
                                                             sx={{ width: 32, height: 32 }} />
                                                     </ListItemAvatar>
-                                                    <ListItemText primary={`${message.title.slice(0, 20)}...`} sx={{ gap: '1rem' }} />
+                                                    <ListItemText primary={getSystemMessage(message.title,language)} sx={{ gap: '1rem' }} />
                                                 </Typography>
                                             </Link>
                                         </MenuItem>

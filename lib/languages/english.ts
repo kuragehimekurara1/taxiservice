@@ -111,6 +111,10 @@ const english = {
         },
 
     },
+    systemMessages: {
+        JOB_REQUEST_TITLE: 'Job request',
+        JOB_REQUEST_MESSAGE: 'You have a new job request.',
+    },
     responseError: {
         CredentialsSignin: 'The username or password you entered is incorrect.',
         ERR_AGENCY_DUPLICATE: 'The agency name is already in use.',

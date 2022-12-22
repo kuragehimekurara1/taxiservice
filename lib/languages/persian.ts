@@ -111,6 +111,10 @@ const persian = {
         },
 
     },
+    systemMessages: {
+        JOB_REQUEST_TITLE: 'درخواست شغل جدید',
+        JOB_REQUEST_MESSAGE: 'درخواست شغل جدیدی برای شما ارسال شده است.',
+    },
     responseError: {
         CredentialsSignin: 'نام کاربری یا رمز عبور وارد شده اشتباه است.',
         ERR_AGENCY_DUPLICATE: 'آژانسی با این نام وجود دارد.',
