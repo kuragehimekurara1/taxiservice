@@ -16,6 +16,7 @@ import { TbRoad } from 'react-icons/tb';
 import { useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { BsMailbox } from 'react-icons/bs';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
 const Sidebar = () => {
 
@@ -33,9 +34,12 @@ const Sidebar = () => {
         else
             setUserValid(false);
     }, [session]);
-
+    const breakpoints = createBreakpoints({});
+    const appbarHeight = [breakpoints.up('md')] ? '64px' : '56px';
     return (
-        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent' PaperProps={{ sx: { overflow: 'hidden' } }} open={sidebarOpen}>
+        <Drawer anchor={direction === 'rtl' ? 'right' : 'left'} variant='persistent'
+            PaperProps={{ sx: { overflowY: 'auto', top: appbarHeight, marginTop: 0, height: `calc(100% - ${appbarHeight})` } }}
+            open={sidebarOpen}>
             <Box>
                 <List dir={direction} sx={{ backgroundColor: 'transparent !important' }} >
                     {isUserValid &&
