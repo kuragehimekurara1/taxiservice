@@ -7,38 +7,68 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Alert from '@mui/material/Alert';
 import Loader from './controls/Loader';
+import { AccountType } from '../types/accountType';
+import { AllSettingsContext } from './context/AllSettingsContext';
+import SettingFetcher from './controls/SettingFetcher';
 
-const AuthorizedLayout = (props: { children: ReactElement; }) => {
+const AuthorizedLayout = (props: { role: AccountType, children: ReactElement; }) => {
 
     const session = useSession();
     const router = useRouter();
+    const { role } = props;
 
     const { language } = useContext(LanguageContext);
 
     const { settings, authorizedLayout, notification } = language;
     const { direction } = settings;
     const [showError, setShowError] = useState(false);
+    const { userSettings } = useContext(AllSettingsContext);
     useEffect(() => {
         if (session.status === 'unauthenticated') {
             setShowError(true);
             router.push('/');
         }
-    }, [session, router]);
+    }, [session, router, role]);
+
+    useEffect(() => {
+        if (session.status === 'authenticated' && userSettings) {
+            if (userSettings.accountType < role) {
+                setShowError(true);
+                router.push('/accessDenied');
+            }
+        }
+    }, [session, router, role, userSettings]);
+
     return (
         <>
             {session.status === 'authenticated' ?
-                <>{props.children}</>
+                <>
+                    {!userSettings ?
+                        <Card dir={direction}>
+
+                            <SettingFetcher />
+                        </Card>
+                        :
+                        userSettings.accountType >= role ?
+                            <>{props.children}</>
+                            :
+                            <></>
+
+                    }
+                </>
                 :
                 <>
                     <Head>
                         <title>{authorizedLayout.loading}</title>
                     </Head>
+
                     <Card dir={direction}>
                         <CardContent>
                             {showError && <Alert severity='error'>{notification.unauthenticated}</Alert>}
                             <Loader usePaper={false} text={session.status === 'loading' ? authorizedLayout.loading : authorizedLayout.redirectingToHomePage} />
                         </CardContent>
                     </Card>
+
                 </>
             }
         </>

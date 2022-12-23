@@ -9,7 +9,7 @@ import CenterBox from '../../../components/controls/CenterBox';
 import DataGridView from '../../../components/controls/DataGridView';
 import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
-import React, { useContext, useEffect, useState,useMemo } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import { GridColDef, GridEventListener, GridRenderCellParams } from '@mui/x-data-grid';
@@ -21,6 +21,7 @@ import MessageDialog from '../../../components/dialogs/MessageDialog';
 import { MessageDialogContext } from '../../../components/context/MessageDialogContext';
 import dateCounter from '../../../lib/dateFormat';
 import { getSystemMessage } from '../../../lib/language';
+import { AccountType } from '../../../types/accountType';
 
 const Sends: NextPage = () => {
 
@@ -33,7 +34,7 @@ const Sends: NextPage = () => {
     const [messages, setMessages] = useState<MessageDataList | undefined>(undefined);
     const [reload, setReload] = useState(false);
 
-    const {sendsPage, inboxPage, settings } = language;
+    const { sendsPage, inboxPage, settings } = language;
 
     const [loadingText, setLoadingText] = useState<string>('');
     const [clickedRow, setClickedRow] = useState<MessageData | undefined>(undefined);
@@ -128,7 +129,7 @@ const Sends: NextPage = () => {
     const rowsWithLabel = JSON.parse(JSON.stringify(rows || []));
 
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.customer}>
             <>
                 <Head>
                     <title>{sendsPage.title}</title>

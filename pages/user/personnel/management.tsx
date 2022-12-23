@@ -21,6 +21,7 @@ import { LanguageContext } from '../../../components/context/LanguageContext';
 import { PersonelList } from '../../../types/personel';
 import { getData } from '../../../lib/axiosRequest';
 import { PersonelContext } from '../../../components/context/PersonelContext';
+import { AccountType } from '../../../types/accountType';
 
 
 const Management: NextPage = () => {
@@ -54,7 +55,7 @@ const Management: NextPage = () => {
     };
 
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.personnel}>
             <PersonelContext.Provider value={{ personelList, setPersonelList }}>
                 <>
                     <Head>

@@ -29,6 +29,7 @@ import { ToastContext } from '../../components/context/ToastContext';
 import { getResponseError } from '../../lib/language';
 import { postData } from '../../lib/axiosRequest';
 import AdvanceSettingsDialog from '../../components/dialogs/AdvanceSettingsDialog';
+import { AccountType } from '../../types/accountType';
 
 const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
@@ -89,7 +90,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
             return;
         }
         const values = {
-            name: fullName, profilePicture: fileName, localization: localization,accountType:accountType
+            name: fullName, profilePicture: fileName, localization: localization, accountType: accountType
         };
         setIsLoading(true);
         // eslint-disable-next-line quotes
@@ -102,7 +103,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
         if (response.status === 200) {
             setToast({ id: Date.now(), message: notification.successfullyEditUser, alertColor: 'success' });
             if (userSettings)
-                setUserSettings({ ...userSettings, name: fullName, profilePicture: fileName, localization: localization,accountType:accountType });
+                setUserSettings({ ...userSettings, name: fullName, profilePicture: fileName, localization: localization, accountType: accountType });
             return;
         }
         const { error } = response.data as { error: string; };
@@ -112,7 +113,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
     const accessList = [settingsPage.customerAccess, settingsPage.personnelAccess, settingsPage.entrepreneurAccess];
 
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.customer}>
             <>
                 <Head>
                     <title>{settingsPage.title}</title>
@@ -152,7 +153,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
                                                             <Tab label={settingsPage.personnel} value={1} />
                                                             <Tab label={settingsPage.entrepreneur} value={2} />
                                                         </Tabs>
-                                                        <CenterBox sx={{ alignItems: 'baseline' }}>
+                                                        <CenterBox sx={{ alignItems: 'start' }}>
                                                             {accessList.map((item, index) => {
                                                                 return (
                                                                     <FormControlLabel key={index} label={item}
@@ -162,7 +163,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
                                                             })}
                                                         </CenterBox>
                                                     </CenterBox>
-                                                    <Button variant='contained' onClick={()=>setShowAdvanceSettingsDialog(true)} >
+                                                    <Button variant='contained' onClick={() => setShowAdvanceSettingsDialog(true)} >
                                                         {settingsPage.advancedSettings}
                                                     </Button>
                                                     <Typography variant='body1' display='block' gutterBottom>

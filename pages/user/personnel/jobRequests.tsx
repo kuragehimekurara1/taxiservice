@@ -17,6 +17,7 @@ import { ToastContext } from '../../../components/context/ToastContext';
 import { getData, postData } from '../../../lib/axiosRequest';
 import { useContext, useEffect, useState } from 'react';
 import DataGridView from '../../../components/controls/DataGridView';
+import { AccountType } from '../../../types/accountType';
 
 const JobRequests: NextPage = () => {
 
@@ -102,7 +103,7 @@ const JobRequests: NextPage = () => {
     };
 
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.personnel}>
             <>
                 <Head>
                     <title>{jobRequestsPage.title}</title>

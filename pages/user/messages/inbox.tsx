@@ -9,7 +9,7 @@ import CenterBox from '../../../components/controls/CenterBox';
 import DataGridView from '../../../components/controls/DataGridView';
 import Head from 'next/head';
 import Loader from '../../../components/controls/Loader';
-import React, { useContext, useEffect, useState ,useMemo} from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import { GridColDef, GridEventListener, GridRenderCellParams } from '@mui/x-data-grid';
@@ -21,6 +21,7 @@ import MessageDialog from '../../../components/dialogs/MessageDialog';
 import { MessageDialogContext } from '../../../components/context/MessageDialogContext';
 import dateCounter from '../../../lib/dateFormat';
 import { getSystemMessage } from '../../../lib/language';
+import { AccountType } from '../../../types/accountType';
 
 const Inbox: NextPage = () => {
 
@@ -117,11 +118,11 @@ const Inbox: NextPage = () => {
         else
             setClickedRow(undefined);
     };
-    const rows = useMemo(()=> messages?.map((message) => {
+    const rows = useMemo(() => messages?.map((message) => {
         return {
             id: message.id,
             sender: message.sender,
-            title: getSystemMessage( message.title, language),
+            title: getSystemMessage(message.title, language),
             message: getSystemMessage(message.message, language),
             date: message.date,
             senderProfilePicture: message.senderProfilePicture,
@@ -162,7 +163,7 @@ const Inbox: NextPage = () => {
     };
 
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.customer}>
             <>
                 <Head>
                     <title>{inboxPage.title}</title>

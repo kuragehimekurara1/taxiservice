@@ -19,6 +19,7 @@ import { ToastContext } from '../../../components/context/ToastContext';
 import { UserDataList } from '../../../types/users';
 import { getData, postData } from '../../../lib/axiosRequest';
 import { getResponseError } from '../../../lib/language';
+import { AccountType } from '../../../types/accountType';
 
 const CreateMessage: NextPage = () => {
 
@@ -91,7 +92,7 @@ const CreateMessage: NextPage = () => {
         setToast({ id: Date.now(), message: getResponseError(error, language), alertColor: 'error' });
     };
     return (
-        <AuthorizedLayout>
+        <AuthorizedLayout role={AccountType.customer}>
             <>
                 <Head>
                     <title>{createMessagePage.title}</title>

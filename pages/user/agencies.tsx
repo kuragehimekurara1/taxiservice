@@ -12,6 +12,7 @@ import Loader from '../../components/controls/Loader';
 import { UserAgenciesContext } from '../../components/context/UserAgenciesContext';
 // eslint-disable-next-line no-duplicate-imports
 import type { NextPage } from 'next';
+import { AccountType } from '../../types/accountType';
 
 const fetcher = async (url: string) => {
     const data = await getData(url);
@@ -55,7 +56,7 @@ const Agencies: NextPage = () => {
             <Head>
                 <title>{agenciesPage.title}</title>
             </Head>
-            <AuthorizedLayout>
+            <AuthorizedLayout role={AccountType.entrepreneur}>
                 <AllAgenciesContext.Provider value={{ agencyNames, setAgencyNames }} >
                     <UserAgenciesContext.Provider value={{ agencyData, setAgencyData }}>
                         {isLoading ? <Loader usePaper={true} text={agenciesPage.fetchingAgencies} /> : <ModifyAgency editMode={editMode} />}
