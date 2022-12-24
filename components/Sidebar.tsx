@@ -13,7 +13,7 @@ import { MdAddBusiness, MdOutlineEditRoad, MdOutlineGroupAdd, MdPlace } from 're
 import { RiMailAddLine, RiSettings3Fill } from 'react-icons/ri';
 import { SidebarContext } from './context/SidebarContext';
 import { TbRoad } from 'react-icons/tb';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { BsMailbox } from 'react-icons/bs';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { IoIosPeople } from 'react-icons/io';
@@ -21,6 +21,7 @@ import { AllSettingsContext } from './context/AllSettingsContext';
 import { Settings } from '../types/settings';
 import { getData } from '../lib/axiosRequest';
 import { AccountType } from '../types/accountType';
+import { useSession } from 'next-auth/react';
 
 const Sidebar = () => {
 
@@ -33,6 +34,7 @@ const Sidebar = () => {
     const { direction } = settings;
 
     const { userSettings, setUserSettings } = useContext(AllSettingsContext);
+    const session = useSession();
 
     useEffect(() => {
         if (!userSettings) {
@@ -44,7 +46,7 @@ const Sidebar = () => {
             };
             getDataAsync();
         }
-    }, [publicUrl, setUserSettings, userSettings]);
+    }, [publicUrl, session.status, setUserSettings, userSettings]);
 
     const breakpoints = createBreakpoints({});
     const appbarHeight = [breakpoints.up('md')] ? '64px' : '56px';
@@ -56,7 +58,7 @@ const Sidebar = () => {
             open={sidebarOpen}>
             <Box>
                 <List dir={direction} sx={{ backgroundColor: 'transparent !important' }} >
-                    {userSettings &&
+                    {userSettings && session.status === 'authenticated' &&
                         <>
                             {userSettings.accountType === AccountType.entrepreneur &&
                                 <ExpandableItems label={sidebar.agenciesManagement} isOpen={true} >

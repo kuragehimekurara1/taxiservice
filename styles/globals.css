@@ -29,3 +29,9 @@ a {
     width: 95vw;
   }
 }
+
+body,
+.MuiAppBar-root {
+  padding: 0 !important;
+  margin: 0 !important;
+}
