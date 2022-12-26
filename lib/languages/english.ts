@@ -92,6 +92,9 @@ const english = {
         messageAndTitleRequired: 'The title and message content must be filled out before sending a message.',
         notSelectedUser: 'Oh, my! There seems to be no user selected.',
         messageSent: 'Well done! We have successfully sent your message.',
+        successfullyAddPlace: 'Well done! The place has been created successfully by you.',
+        addressRequired: 'Oh my! The address appears to be blank.',
+        locationRequired: 'Please enter the desired location on the map.',
     },
     authorizedLayout: {
         loading: 'Loading...',
@@ -296,6 +299,18 @@ const english = {
         messageContent: 'Content',
         send: 'Send',
         sendingMessage: 'Sending message...',
+    },
+    placePage: {
+        title: 'Places',
+        myPlaces: 'My places',
+        addPlace: 'Add place',
+        editPlace: 'Edit place',
+        addPlaceTab: {
+            addingPlace: 'Adding a new place...',
+            address: 'Address',
+            addPlace: 'Add place',
+        },
+ 
     },
     pageNotFound: {
         title: 'Page not found!',

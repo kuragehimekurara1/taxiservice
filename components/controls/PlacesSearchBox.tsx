@@ -7,11 +7,12 @@ import { SxProps, Theme } from '@mui/material/styles';
 export type PlacesSearchBoxProps = {
     onLocationChanged?: (value: TaggedItem<number[]> | null) => void;
     sx?: SxProps<Theme>;
+    label?: string;
 };
 
 const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
 
-    const { onLocationChanged, sx } = props;
+    const { onLocationChanged, sx,label } = props;
 
     const { language } = useContext(LanguageContext);
 
@@ -58,7 +59,7 @@ const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
 
     return (
         <>
-            <AutoCompletedPlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={suggestionItems} label={components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
+            <AutoCompletedPlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={suggestionItems} label={label || components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
         </>
     );
 };

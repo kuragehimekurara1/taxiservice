@@ -29,14 +29,7 @@ import { getData } from '../lib/axiosRequest';
 import { useSession } from 'next-auth/react';
 import { getSystemMessage } from '../lib/language';
 
-const fetcher = async (url: string) => {
-    const data = await getData(url);
-    if (!data)
-        return undefined;
-    if (data.status !== 200)
-        throw new Error(data.statusText);
-    return data.data;
-};
+
 
 const Navbar = () => {
 
@@ -51,7 +44,7 @@ const Navbar = () => {
     const { sidebarOpen, setSidebarOpen } = useContext(SidebarContext);
 
     const { direction } = language.settings;
-    const { notification,settings } = language;
+    const { notification, settings } = language;
     const session = useSession();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isUserValid, setUserValid] = useState(false);
@@ -70,8 +63,17 @@ const Navbar = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const fetcher = async (url: string) => {
+        if (session.status !== 'authenticated')
+            return undefined;
+        const data = await getData(url);
+        if (!data)
+            return undefined;
+        if (data.status !== 200)
+            throw new Error(data.statusText);
+        return data.data;
+    };
     const { data } = useSWR(process.env.NEXT_PUBLIC_WEB_URL + '/api/messages/retrieve', fetcher);
-
     useEffect(() => {
         if (session.data)
             setUserValid(true);
@@ -128,14 +130,14 @@ const Navbar = () => {
                             <Menu dir={settings.direction} open={open} anchorEl={anchorEl} onClose={handleClose}>
                                 {unreadMessages?.map(message => {
                                     return (
-                                        <MenuItem  key={message.id} onClick={redirectToInbox}>
+                                        <MenuItem key={message.id} onClick={redirectToInbox}>
                                             <Link href={'/user/messages/inbox'}>
-                                                <Typography component={'ul'} sx={{ display: 'contents'}}>
+                                                <Typography component={'ul'} sx={{ display: 'contents' }}>
                                                     <ListItemAvatar>
                                                         <Avatar alt={message.title} src={profilePictureUrl + message.senderProfilePicture}
                                                             sx={{ width: 32, height: 32 }} />
                                                     </ListItemAvatar>
-                                                    <ListItemText primary={getSystemMessage(message.title,language)} sx={{ gap: '1rem' }} />
+                                                    <ListItemText primary={getSystemMessage(message.title, language)} sx={{ gap: '1rem' }} />
                                                 </Typography>
                                             </Link>
                                         </MenuItem>

@@ -64,7 +64,7 @@ const Sidebar = () => {
                                 <ExpandableItems label={sidebar.agenciesManagement} isOpen={true} >
                                     <SidebarItem item={{ icon: <MdAddBusiness />, text: sidebar.addNewAgency, url: '/user/agencies?mode=create' }} />
                                     <SidebarItem item={{ icon: <MdOutlineEditRoad />, text: sidebar.editAgency, url: '/user/agencies?mode=edit' }} />
-                                    <SidebarItem item={{ icon: <IoIosPeople />, text: sidebar.Subscribers, url: '/subscribers' }} />
+                                    <SidebarItem item={{ icon: <IoIosPeople />, text: sidebar.Subscribers, url: '/user/subscribers' }} />
                                 </ExpandableItems>
                             }
                             {userSettings.accountType >= AccountType.personnel &&
@@ -76,8 +76,8 @@ const Sidebar = () => {
                                     <Divider />
                                 </>
                             }
-                            <SidebarItem item={{ icon: <MdPlace />, text: sidebar.places, url: '/places' }} />
-                            <SidebarItem item={{ icon: <TbRoad />, text: sidebar.trips, url: '/trips' }} />
+                            <SidebarItem item={{ icon: <MdPlace />, text: sidebar.places, url: '/user/places' }} />
+                            <SidebarItem item={{ icon: <TbRoad />, text: sidebar.trips, url: '/user/trips' }} />
                             <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/payments' }} />
                             <Divider />
                             <ExpandableItems label={sidebar.messages} isOpen={true} >

@@ -92,6 +92,9 @@ const persian = {
         messageAndTitleRequired:'عنوان و محتوای پیام باید قبل از ارسال پیام پر شود.',
         notSelectedUser: 'ای وای! به نظر می رسد هیچ کاربری انتخاب نشده است.',
         messageSent: 'آفرین! ما با موفقیت پیام شما را ارسال کردیم.',
+        successfullyAddPlace: 'آفرین! مکان با موفقیت توسط شما ایجاد شده است.',
+        addressRequired: 'ای وای! به نظر می رسد آدرس خالی است.',
+        locationRequired:'لطفا مکان مورد نظر را روی نقشه وارد کنید.',
     },
     authorizedLayout: {
         loading: 'در حال بارگذاری...',
@@ -295,6 +298,17 @@ const persian = {
         messageContent: 'متن پیام',
         send: 'ارسال',
         sendingMessage: 'در حال ارسال پیام...',
+    },
+    placePage: {
+        title: 'مکان ها',
+        myPlaces: 'مکان های من',
+        addPlace: 'افزودن مکان',
+        editPlace: 'ویرایش مکان',
+        addPlaceTab: {
+            addingPlace: 'در حال افزودن مکان...',
+            address: 'آدرس',
+            addPlace: 'افزودن مکان',
+        },
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',
