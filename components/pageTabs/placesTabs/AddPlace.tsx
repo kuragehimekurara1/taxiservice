@@ -1,11 +1,12 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import dynamic from 'next/dynamic';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { postData } from '../../../lib/axiosRequest';
 import { getResponseError } from '../../../lib/language';
 import { LanguageContext } from '../../context/LanguageContext';
 import { LocalizationInfoContext } from '../../context/LocalizationInfoContext';
+import { PlaceContext } from '../../context/PlaceContext';
 import { ToastContext } from '../../context/ToastContext';
 import { TaggedItem } from '../../controls/AutoCompletePlus';
 import CenterBox from '../../controls/CenterBox';
@@ -18,18 +19,19 @@ const AddPlace = () => {
     const address = useRef<HTMLInputElement>(null);
 
     const [location, setLocation] = useState<TaggedItem<number[]> | null>(null);
+    const [loadingText, setLoadingText] = useState('');
 
     const { language } = useContext(LanguageContext);
     const { localizationInfo } = useContext(LocalizationInfoContext);
     const { setToast } = useContext(ToastContext);
+    const { placesList, setPlacesList } = useContext(PlaceContext);
 
     const addPlaceTab = language.placePage.addPlaceTab;
-    const {notification} = language;
-    const { lat, long } = localizationInfo;
-    const [loadingText, setLoadingText] = useState('');
-    const defaultLocation = useMemo(() => {
-        return lat && long ? [lat, long] : [0, 0];
-    }, [lat, long]);
+    const { notification } = language;
+    const lat = localizationInfo?.lat || 0;
+    const long = localizationInfo?.long || 0;
+    const defaultLocation = [lat, long];
+
     const updateLocation = (newLocation: TaggedItem<number[]> | null) => {
         if (newLocation) {
             setLocation(newLocation);
@@ -38,6 +40,7 @@ const AddPlace = () => {
     const updateMap = (newLocation: number[]) => {
         setLocation({ tag: newLocation, displayText: '' });
     };
+
     const addPlace = async () => {
         const currentAddress = address.current?.value || '';
 
@@ -51,15 +54,19 @@ const AddPlace = () => {
         }
         const data = { address: currentAddress, location: location.tag };
         setLoadingText(addPlaceTab.addingPlace);
-        const response = await postData('/api/places/add', data);
+        const response = await postData('/api/places/insert', data);
         setLoadingText('');
-        if (!response)
-        {
-            setToast({ id: Math.random(), message: getResponseError('ERR_NULL_RESPONSE',language), alertColor: 'error' });
+        if (!response) {
+            setToast({ id: Math.random(), message: getResponseError('ERR_NULL_RESPONSE', language), alertColor: 'error' });
             return;
         }
         if (response.status === 200) {
             setToast({ id: Math.random(), message: notification.successfullyAddPlace, alertColor: 'success' });
+
+            const newPlacesList = [...placesList || []];
+            newPlacesList.push(response.data as { id: string; address: string; latitude: number; longitude: number; });
+            setPlacesList(newPlacesList);
+
             return;
         }
         let { error } = response.data as { error: string; };
@@ -76,9 +83,9 @@ const AddPlace = () => {
                     sx={{ width: '100%' }}
                     inputProps={{ maxLength: 800 }}
                     inputRef={address} />
-                <PlacesSearchBox onLocationChanged={updateLocation} />
+                <PlacesSearchBox onLocationChanged={updateLocation}/>
                 <Map currentLocation={location?.tag || defaultLocation} onLocationChanged={updateMap} />
-                <Button variant="contained" color="primary" onClick={() => addPlace()}>{addPlaceTab.addPlace}</Button>
+                <Button onClick={() => addPlace()}>{addPlaceTab.addPlace}</Button>
             </CenterBox>
             {loadingText !== '' &&
                 <CenterBox>

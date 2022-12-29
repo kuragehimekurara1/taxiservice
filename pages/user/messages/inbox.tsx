@@ -204,7 +204,7 @@ const Inbox: NextPage = () => {
                                             </Button>
                                         </>
                                         :
-                                        <Typography variant="body2">
+                                        <Typography variant='body2'>
                                             {inboxPage.noMessages}
                                         </Typography>
                                     }

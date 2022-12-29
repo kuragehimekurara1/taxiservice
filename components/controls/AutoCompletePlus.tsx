@@ -1,11 +1,10 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import Popper from '@mui/material/Popper';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { LanguageContext } from '../context/LanguageContext';
 import { SxProps, Theme } from '@mui/material/styles';
-import { Avatar } from '@mui/material';
-
+import Avatar from '@mui/material/Avatar';
 export type TaggedItem<T> = {
     displayText: string;
     tag: T;
@@ -42,7 +41,10 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             avatar: item.avatar,
         };
     });
-    const item = options?.find((item) => item.tag === selectedItem as string);
+    useEffect(() => {
+        setSelectedItem(selectedValue);
+    }, [selectedValue]);
+    const item = options?.find((item) => item.displayText === selectedItem);
 
     return (
         <Autocomplete
@@ -64,16 +66,17 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             loadingText={components.loadingText}
             value={item || null}
             onChange={(event, item) => {
-                if (onChanged)
+                if (onChanged) {
                     onChanged(item);
-                setSelectedItem(item?.tag as string);
+                }
+                setSelectedItem(item?.displayText || undefined);
+            }}
+            onInputChange={(event, value) => {
+                if (onInputTextChanged)
+                    onInputTextChanged(value);
             }}
             PopperComponent={(props) => <Popper dir={direction} {...props} />}
-            renderInput={(params) => <TextField  onChange={e => {
-                if (onInputTextChanged)
-                    onInputTextChanged(e.target.value);
-            }}
-                {...params} label={label} />}
+            renderInput={(params) => <TextField {...params} label={label} />}
         />
     );
 };

@@ -1,4 +1,4 @@
-import AutoCompletedPlus, { TaggedItem } from './AutoCompletePlus';
+import AutoCompletePlus, { TaggedItem } from './AutoCompletePlus';
 import { LanguageContext } from '../context/LanguageContext';
 import { fetchCitiesLocation } from '../../lib/geography';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -59,7 +59,7 @@ const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
 
     return (
         <>
-            <AutoCompletedPlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={suggestionItems} label={label || components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
+            <AutoCompletePlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={suggestionItems} label={label || components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
         </>
     );
 };

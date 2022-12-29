@@ -104,7 +104,7 @@ const CreateMessage: NextPage = () => {
                             <Loader text={loadingText} />
                         </Box>
                         <Box sx={{ display: loadingText === '' && !users ? 'flex' : 'none' }}>
-                            <Typography variant="body2">
+                            <Typography variant='body2'>
                                 {createMessagePage.noUser}
                             </Typography>
                         </Box>

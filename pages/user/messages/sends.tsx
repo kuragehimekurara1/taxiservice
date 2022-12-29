@@ -160,7 +160,7 @@ const Sends: NextPage = () => {
                                             />
                                         </>
                                         :
-                                        <Typography variant="body2">
+                                        <Typography variant='body2'>
                                             {inboxPage.noMessages}
                                         </Typography>
                                     }

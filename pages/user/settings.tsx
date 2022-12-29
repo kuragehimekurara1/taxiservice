@@ -20,7 +20,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import { AllSettingsContext } from '../../components/context/AllSettingsContext';
-import { CountryType } from '../../lib/geography';
+import { CountryType, LocalizationInfoType } from '../../lib/geography';
 import { FormControlLabel } from '@mui/material';
 // eslint-disable-next-line no-duplicate-imports
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
@@ -47,7 +47,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
     const [countryList, setCountryList] = useState<TaggedItem<string>[]>();
     const [localization, setLocalization] = useState<string>('');
     const [accountType, setAccountType] = useState(0);
-
+    const [selectedValue, setSelectedValue] = useState('');
     const fullNameChanged = (value: string) => {
         setFullName(value);
     };
@@ -111,6 +111,14 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
     };
 
     const accessList = [settingsPage.customerAccess, settingsPage.personnelAccess, settingsPage.entrepreneurAccess];
+    useEffect(() => {
+        if (localization) {
+            import('../../data/localization/' + localization + '.json').then((response) => {
+                const country = response.default as LocalizationInfoType;
+                setSelectedValue(country.name);
+            });
+        }
+    }, [localization]);
 
     return (
         <AuthorizedLayout role={AccountType.customer}>
@@ -139,8 +147,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
                                                     <Typography variant='caption' display='block' gutterBottom>
                                                         {settingsPage.profilePictureDescription}
                                                     </Typography>
-                                                    <AutoCompletePlus selectedValue={localization} onChanged={(country) => setLocalization(!country ? '' : country.tag)} items={countryList}
-                                                        label={settingsPage.localization} />
+                                                    <AutoCompletePlus items={countryList} selectedValue={selectedValue} onChanged={(country) => setLocalization(!country ? '' : country.tag)} label={settingsPage.localization} />
                                                     <Alert severity='warning'>
                                                         {settingsPage.localizationWarning}
                                                     </Alert>

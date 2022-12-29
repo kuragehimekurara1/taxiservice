@@ -74,7 +74,7 @@ const PersonelListTab = () => {
             dispatch(e.target.checked);
         };
         return (
-            <ListItem sx={{gap: '1rem' }}>
+            <ListItem sx={{ gap: '1rem' }}>
                 <Checkbox checked={checked} onChange={handleChanged} />
                 <ListItemText>
                     <Typography variant='body2' component='p' sx={{ textAlign: 'start' }} gutterBottom>
@@ -144,7 +144,7 @@ const PersonelListTab = () => {
                             <Avatar src={profilePictureUrl + activeItem.profilePicture} sx={{ width: 84, height: 84 }} />
                             <TextField inputRef={inputRef} label={personelManagementPage.jobPosition} defaultValue={activeItem.position}
                                 required onChange={(e) => setPosition(e.target.value)} />
-                            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                            <Typography variant='body1' sx={{ textAlign: 'center' }}>
                                 {personelManagementPage.workplace + ':' + activeItem.agencyName}
                             </Typography>
                             <List dir={settings.direction}>

@@ -181,6 +181,9 @@ const english = {
         save: 'Save',
         discard: 'Discard',
     },
+    homePage: {
+        title: 'Home',
+    },
     agenciesPage: {
         fetchingAgencies: 'Receiving information from the server...',
         activeAgency: 'The agency is active.',
@@ -310,6 +313,11 @@ const english = {
             address: 'Address',
             addPlace: 'Add place',
         },
+        myPlacesTab: {
+            address: 'Address',
+        },
+        receivingPlaces: 'Receiving places...',
+        reload: 'Reload',
  
     },
     pageNotFound: {

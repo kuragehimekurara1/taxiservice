@@ -95,6 +95,7 @@ const persian = {
         successfullyAddPlace: 'آفرین! مکان با موفقیت توسط شما ایجاد شده است.',
         addressRequired: 'ای وای! به نظر می رسد آدرس خالی است.',
         locationRequired:'لطفا مکان مورد نظر را روی نقشه وارد کنید.',
+        
     },
     authorizedLayout: {
         loading: 'در حال بارگذاری...',
@@ -179,6 +180,9 @@ const persian = {
         description: 'یک عکس نمایه برای حساب کاربری خود انتخاب کنید.',
         save: 'ذخیره',
         discard: 'بی خیال',
+    },
+    homePage: {
+        title: 'صفحه اصلی',
     },
     agenciesPage: {
         fetchingAgencies: 'در حال دریافت اطلاعات از سرور...',
@@ -309,6 +313,11 @@ const persian = {
             address: 'آدرس',
             addPlace: 'افزودن مکان',
         },
+        myPlacesTab: {
+            address: 'آدرس',
+        },
+        receivingPlaces: 'در حال دریافت مکان ها...',
+        reload: 'بارگذاری مجدد',
     },
     pageNotFound: {
         title: 'صفحه مورد نظر وجود ندارد!',
