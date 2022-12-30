@@ -24,6 +24,7 @@ import { AllSettingsContext } from '../../components/context/AllSettingsContext'
 import SettingFetcher from '../../components/controls/SettingFetcher';
 import { LocalizationInfoContext } from '../../components/context/LocalizationInfoContext';
 import { LocalizationInfoType } from '../../lib/geography';
+import EditPlace from '../../components/pageTabs/placesTabs/EditPlace';
 
 const Places: NextPage = () => {
 
@@ -99,6 +100,9 @@ const Places: NextPage = () => {
                                             </TabPanel>
                                             <TabPanel activeIndex={tabID} index='addPlace'>
                                                 <AddPlace />
+                                            </TabPanel>
+                                            <TabPanel activeIndex={tabID} index='editPlace'>
+                                                <EditPlace />
                                             </TabPanel>
                                         </CenterBox>
                                     </CardContent>

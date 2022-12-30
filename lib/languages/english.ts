@@ -95,6 +95,9 @@ const english = {
         successfullyAddPlace: 'Well done! The place has been created successfully by you.',
         addressRequired: 'Oh my! The address appears to be blank.',
         locationRequired: 'Please enter the desired location on the map.',
+        successfullyRemovePlace: 'Well done! The place has been removed successfully by you.',
+        successfullyEditPlace: 'Well done! The place has been edited successfully by you.',
+        selectAddress: 'Please select an address from the list.',
     },
     authorizedLayout: {
         loading: 'Loading...',
@@ -315,6 +318,13 @@ const english = {
         },
         myPlacesTab: {
             address: 'Address',
+        },
+        editPlaceTab: {
+            updatingPlace: 'Updating place...',
+            address: 'Address',
+            editPlace: 'Edit place',
+            removePlace: 'Remove place',
+            removingPlace: 'Removing place...',
         },
         receivingPlaces: 'Receiving places...',
         reload: 'Reload',

@@ -9,6 +9,7 @@ export type TaggedItem<T> = {
     displayText: string;
     tag: T;
     avatar?: string;
+    id?: string;
 };
 
 export type AutoCompletePlusProps<T> = {
@@ -27,7 +28,6 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
 
     const style: SxProps<Theme> = { ...{ width: 'min(70vw, 300px)', ...sx } };
     const { language } = useContext(LanguageContext);
-
     const { settings, components } = language;
     const { direction } = settings;
     const [selectedItem, setSelectedItem] = useState<string | undefined>(selectedValue);
@@ -39,6 +39,7 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
             tag: item.tag,
             key: index,
             avatar: item.avatar,
+            id: item.id
         };
     });
     useEffect(() => {

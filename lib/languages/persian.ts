@@ -94,8 +94,10 @@ const persian = {
         messageSent: 'آفرین! ما با موفقیت پیام شما را ارسال کردیم.',
         successfullyAddPlace: 'آفرین! مکان با موفقیت توسط شما ایجاد شده است.',
         addressRequired: 'ای وای! به نظر می رسد آدرس خالی است.',
-        locationRequired:'لطفا مکان مورد نظر را روی نقشه وارد کنید.',
-        
+        locationRequired: 'لطفا مکان مورد نظر را روی نقشه وارد کنید.',
+        successfullyRemovePlace: 'آفرین! مکان با موفقیت توسط شما حذف شده است.',
+        successfullyEditPlace: 'آفرین! مکان با موفقیت توسط شما ویرایش شده است.',
+        selectAddress: 'لطفا آدرس مورد نظر را از لیست انتخاب کنید.',
     },
     authorizedLayout: {
         loading: 'در حال بارگذاری...',
@@ -315,6 +317,13 @@ const persian = {
         },
         myPlacesTab: {
             address: 'آدرس',
+        },
+        editPlaceTab: {
+            updatingPlace: 'در حال بروزرسانی مکان ...',
+            address: 'آدرس',
+            editPlace: 'ویرایش مکان',
+            removePlace: 'حذف مکان',
+            removingPlace: 'در حال حذف مکان...',
         },
         receivingPlaces: 'در حال دریافت مکان ها...',
         reload: 'بارگذاری مجدد',

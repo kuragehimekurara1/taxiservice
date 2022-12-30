@@ -12,16 +12,9 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json({ error: 'ERR_UNAUTHORIZED' });
 
     const email = session.user.email;
-    const { location } = <{ location: number[]; }>req.body;
-    let { address } = <{ address: string; }>req.body;
+    const { id } = <{ id: string; }>req.body;
 
-    const maxAddressLength = 800;
-    address = address.substring(0, maxAddressLength);
 
-    if (!location || !address)
-        return res.status(400).json({ error: 'ERR_INVALID_REQUEST' });
-    if (address.length === 0 || location.length !== 2)
-        return res.status(400).json({ error: 'ERR_INVALID_REQUEST' });
 
 
     try {
@@ -35,17 +28,14 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!user)
             return res.status(404).json({ error: 'ERR_USER_NOT_FOUND' });
 
-        const place = await prisma.places.create({
-            data: {
-                address: address,
-                latitude: location[0],
-                longitude: location[1],
-                userId: user.id
+        const place = await prisma.places.delete({
+            where: {
+                id: id
             }
         });
 
         if (!place)
-            return res.status(500).json({ error: 'ERR_UNKNOWN' });
+            return res.status(404).json({ error: 'ERR_PLACE_NOT_FOUND' });
 
         const myPlaces = await prisma.places.findMany({
             where: {

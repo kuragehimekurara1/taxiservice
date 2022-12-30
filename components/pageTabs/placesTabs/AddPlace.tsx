@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import React, { useContext, useRef, useState } from 'react';
 import { postData } from '../../../lib/axiosRequest';
 import { getResponseError } from '../../../lib/language';
+import { PlacesList } from '../../../types/placeType';
 import { LanguageContext } from '../../context/LanguageContext';
 import { LocalizationInfoContext } from '../../context/LocalizationInfoContext';
 import { PlaceContext } from '../../context/PlaceContext';
@@ -24,7 +25,7 @@ const AddPlace = () => {
     const { language } = useContext(LanguageContext);
     const { localizationInfo } = useContext(LocalizationInfoContext);
     const { setToast } = useContext(ToastContext);
-    const { placesList, setPlacesList } = useContext(PlaceContext);
+    const {setPlacesList } = useContext(PlaceContext);
 
     const addPlaceTab = language.placePage.addPlaceTab;
     const { notification } = language;
@@ -62,11 +63,8 @@ const AddPlace = () => {
         }
         if (response.status === 200) {
             setToast({ id: Math.random(), message: notification.successfullyAddPlace, alertColor: 'success' });
-
-            const newPlacesList = [...placesList || []];
-            newPlacesList.push(response.data as { id: string; address: string; latitude: number; longitude: number; });
-            setPlacesList(newPlacesList);
-
+            const { myPlaces } = response.data;
+            setPlacesList(myPlaces as PlacesList);
             return;
         }
         let { error } = response.data as { error: string; };
