@@ -98,6 +98,7 @@ const persian = {
         successfullyRemovePlace: 'آفرین! مکان با موفقیت توسط شما حذف شده است.',
         successfullyEditPlace: 'آفرین! مکان با موفقیت توسط شما ویرایش شده است.',
         selectAddress: 'لطفا آدرس مورد نظر را از لیست انتخاب کنید.',
+        firstTimeLogin:'خوش آمدید، لطفا قبل از ادامه تنظیمات خود را به روز کنید.',
     },
     authorizedLayout: {
         loading: 'در حال بارگذاری...',

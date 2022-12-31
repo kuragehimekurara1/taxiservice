@@ -82,23 +82,14 @@ export const options = {
                 });
 
                 if (user) {
-                    const lastLogin = user.lastLogin;
-                    await prisma.user.update({
-                        where: {
-                            email: user.email,
-                        },
-                        data: {
-                            lastLogin: new Date(),
-                        }
-                    });
-                    session.user = { email: user.email, name: user.name, lastLogin: lastLogin };
+                    session.user = { email: user.email, name: user.name };
                     return Promise.resolve(session);
                 }
                 return Promise.reject();
             }
             catch (e) {
                 log.error(JSON.stringify(e));
-                return Promise.reject();
+                return Promise.reject({ 'message:' : JSON.stringify(e) });
             }
         },
 

@@ -23,6 +23,7 @@ const AuthorizedLayout = (props: { role: AccountType, children: ReactElement; })
     const { direction } = settings;
     const [showError, setShowError] = useState(false);
     const { userSettings } = useContext(AllSettingsContext);
+    const [isFirstLogin, setIsFirstLogin] = useState(false);
     useEffect(() => {
         if (session.status === 'unauthenticated') {
             setShowError(true);
@@ -31,13 +32,20 @@ const AuthorizedLayout = (props: { role: AccountType, children: ReactElement; })
     }, [session, router, role]);
 
     useEffect(() => {
-        if (session.status === 'authenticated' && userSettings) {
+        if (session.status === 'authenticated' && userSettings && !userSettings.isFirstLogin) {
             if (userSettings.accountType < role) {
                 setShowError(true);
                 router.push('/accessDenied');
             }
         }
     }, [session, router, role, userSettings]);
+
+    useEffect(() => {
+        if (session.status === 'authenticated' && userSettings && userSettings.isFirstLogin && !isFirstLogin) {
+            setIsFirstLogin(true);
+            router.push('/user/settings');
+        }
+    }, [isFirstLogin, router, session, userSettings]);
 
     return (
         <>

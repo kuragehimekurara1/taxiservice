@@ -35,7 +35,6 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         createdAt: new Date(),
                         name: '',
                         profilePicture: 'profile0.svg',
-                        lastLogin:null,
                         localization: 'US',
                     }
                 });

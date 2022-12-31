@@ -44,6 +44,7 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
     const [profilePicture, setProfilePicture] = useState('');
     const [fullName, setFullName] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showFirstTimeMessage, setShowFirstTimeMessage] = useState(false);
     const [countryList, setCountryList] = useState<TaggedItem<string>[]>();
     const [localization, setLocalization] = useState<string>('');
     const [accountType, setAccountType] = useState(0);
@@ -103,7 +104,10 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
         if (response.status === 200) {
             setToast({ id: Date.now(), message: notification.successfullyEditUser, alertColor: 'success' });
             if (userSettings)
-                setUserSettings({ ...userSettings, name: fullName, profilePicture: fileName, localization: localization, accountType: accountType });
+                setUserSettings({
+                    ...userSettings, name: fullName, profilePicture: fileName,
+                    localization: localization, accountType: accountType, isFirstLogin: false
+                });
             return;
         }
         const { error } = response.data as { error: string; };
@@ -119,6 +123,12 @@ const Settings: NextPage = ({ countries }: InferGetStaticPropsType<typeof getSta
             });
         }
     }, [localization]);
+    useEffect(() => {
+        if (!showFirstTimeMessage && userSettings && userSettings.isFirstLogin) {
+            setShowFirstTimeMessage(true);
+            setToast({ id: Date.now(), message: notification.firstTimeLogin, alertColor: 'info' });
+        }
+    }, [notification.firstTimeLogin, setToast, showFirstTimeMessage, userSettings]);
 
     return (
         <AuthorizedLayout role={AccountType.customer}>

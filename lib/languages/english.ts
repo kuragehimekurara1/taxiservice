@@ -98,6 +98,7 @@ const english = {
         successfullyRemovePlace: 'Well done! The place has been removed successfully by you.',
         successfullyEditPlace: 'Well done! The place has been edited successfully by you.',
         selectAddress: 'Please select an address from the list.',
+        firstTimeLogin: 'You are welcome, please update your settings before continuing.',
     },
     authorizedLayout: {
         loading: 'Loading...',

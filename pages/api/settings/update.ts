@@ -45,7 +45,8 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 name: name,
                 localization: localization,
                 profilePicture: profilePicture,
-                accountType: accountType
+                accountType: accountType,
+                settingUpdateDate: new Date()
             }
         });
         if (!agency)

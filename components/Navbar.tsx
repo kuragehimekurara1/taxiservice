@@ -126,9 +126,10 @@ const Navbar = () => {
                                 }}>
                                     <IoMdNotifications />
                                 </Badge>
-                            </IconButton>
+                        </IconButton>
+                        {unreadMessages &&
                             <Menu dir={settings.direction} open={open} anchorEl={anchorEl} onClose={handleClose}>
-                                {unreadMessages?.map(message => {
+                                {unreadMessages.map(message => {
                                     return (
                                         <MenuItem key={message.id} onClick={redirectToInbox}>
                                             <Link href={'/user/messages/inbox'}>
@@ -144,6 +145,7 @@ const Navbar = () => {
                                     );
                                 })}
                             </Menu>
+                        }
                         </>
 
                     }
