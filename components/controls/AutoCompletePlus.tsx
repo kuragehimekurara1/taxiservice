@@ -49,7 +49,6 @@ const AutoCompletePlus = <T,>(props: AutoCompletePlusProps<T>) => {
 
     return (
         <Autocomplete
-            id='grouped-demo'
             loading={loading && true}
             options={options ? options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter)) : []}
             groupBy={(option) => option.firstLetter}

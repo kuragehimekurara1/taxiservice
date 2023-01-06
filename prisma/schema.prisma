@@ -11,46 +11,46 @@ datasource db {
 }
 
 model User {
-  id               String     @id @default(cuid()) @map("_id")
-  email            String     @unique
-  password         String
-  createdAt        DateTime   @db.Timestamptz
-  verifiedCodeDate DateTime   @db.Timestamptz
-  verifiedCode     String
-  verified         Boolean    @default(false)
-  resetCodeDate    DateTime?  @db.Timestamptz
-  settingUpdateDate        DateTime?  @db.Timestamptz
-  resetCode        String?
-  profilePicture   String     @default("")
-  name             String     @default("") @db.VarChar(300)
-  localization     String     @default("US")
-  accountType      Int        @default(0)
-  Agency           Agency[]
-  Personel         Personel[]
-  Trips            Trips[]
-  sender           Message[]  @relation("senderID")
-  Message          Message[]
-  Places           Places[]
+  id                String     @id @default(cuid()) @map("_id")
+  email             String     @unique
+  password          String
+  createdAt         DateTime   @db.Timestamptz
+  verifiedCodeDate  DateTime   @db.Timestamptz
+  verifiedCode      String
+  verified          Boolean    @default(false)
+  resetCodeDate     DateTime?  @db.Timestamptz
+  settingUpdateDate DateTime?  @db.Timestamptz
+  resetCode         String?
+  profilePicture    String     @default("")
+  name              String     @default("") @db.VarChar(300)
+  localization      String     @default("US")
+  accountType       Int        @default(0)
+  Agency            Agency[]
+  Personel          Personel[]
+  Trips             Trips[]
+  sender            Message[]  @relation("senderID")
+  Message           Message[]
+  Places            Places[]
 }
 
 model Agency {
-  id                  String         @id @default(cuid()) @map("_id")
-  agencyName          String         @unique @db.VarChar(50)
-  isEnable            Boolean        @default(true)
-  phoneNumber1        String         @db.VarChar(30)
-  phoneNumber2        String         @db.VarChar(30)
-  mobileNumber        String         @db.VarChar(30)
-  address             String         @db.VarChar(300)
+  id                  String        @id @default(cuid()) @map("_id")
+  agencyName          String        @unique @db.VarChar(50)
+  isEnable            Boolean       @default(true)
+  phoneNumber1        String        @db.VarChar(30)
+  phoneNumber2        String        @db.VarChar(30)
+  mobileNumber        String        @db.VarChar(30)
+  address             String        @db.VarChar(300)
   latitude            Float
   longitude           Float
   workingDays         Int
-  startOfWorkingHours DateTime       @db.Timestamptz
-  endOfWorkingHours   DateTime       @db.Timestamptz
-  createdAt           DateTime       @db.Timestamptz
-  user                User           @relation(fields: [userId], references: [id])
+  startOfWorkingHours DateTime      @db.Timestamptz
+  endOfWorkingHours   DateTime      @db.Timestamptz
+  createdAt           DateTime      @db.Timestamptz
+  user                User          @relation(fields: [userId], references: [id])
   userId              String
   Personels           Personel[]
-  Subscription        Subscription[]
+  Subscribers         Subscribers[]
 }
 
 model Personel {
@@ -108,13 +108,15 @@ model Places {
   userId    String
 }
 
-model Subscription {
-  id             String  @id @default(cuid()) @map("_id")
-  agency         Agency  @relation(fields: [agencyId], references: [id])
-  agencyId       String
-  address        String  @db.VarChar(800)
-  latitude       Float
-  longitude      Float
-  SubscriptionID String  @unique @db.VarChar(50)
-  description    String? @db.VarChar(300)
+model Subscribers {
+  id           String  @id @default(cuid()) @map("_id")
+  agency       Agency  @relation(fields: [agencyId], references: [id])
+  agencyId     String
+  name         String  @db.VarChar(50)
+  address      String  @db.VarChar(800)
+  latitude     Float
+  longitude    Float
+  subscriberID String  @unique @db.VarChar(50)
+  phoneNumber  String? @db.VarChar(30)
+  description  String? @db.VarChar(300)
 }

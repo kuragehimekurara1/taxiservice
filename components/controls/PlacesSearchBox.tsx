@@ -8,16 +8,17 @@ export type PlacesSearchBoxProps = {
     onLocationChanged?: (value: TaggedItem<number[]> | null) => void;
     sx?: SxProps<Theme>;
     label?: string;
+    customPlaces?: TaggedItem<number[]>[];
 };
 
 const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
 
-    const { onLocationChanged, sx,label } = props;
+    const { onLocationChanged, sx, label, customPlaces } = props;
 
     const { language } = useContext(LanguageContext);
 
     const [suggestState, setSuggestState] = useState<'typing' | 'fetching' | 'ready'>('ready');
-    const [suggestionItems, setSuggestionItems] = useState<TaggedItem<number[]>[]>([]);
+    const [suggestionItems, setSuggestionItems] = useState<TaggedItem<number[]>[]>();
 
     const delayTime = 1.5 * 1000;
     let city = '';
@@ -27,6 +28,8 @@ const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
         if (suggestState !== 'typing')
             setSuggestState('typing');
     };
+
+    const combinedItems = customPlaces ? [...customPlaces, ...suggestionItems || []] : suggestionItems;
 
     const components = language.components;
 
@@ -59,7 +62,7 @@ const PlacesSearchBox = (props: PlacesSearchBoxProps) => {
 
     return (
         <>
-            <AutoCompletePlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={suggestionItems} label={label || components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
+            <AutoCompletePlus sx={sx} onInputTextChanged={(city) => onTextChange(city)} loading={suggestState !== 'ready'} items={combinedItems} label={label || components.locations} onChanged={(item) => onLocationChanged && onLocationChanged(item)} />
         </>
     );
 };

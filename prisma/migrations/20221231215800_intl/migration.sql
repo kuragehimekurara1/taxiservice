@@ -98,16 +98,16 @@ CREATE TABLE "Places" (
 );
 
 -- CreateTable
-CREATE TABLE "Subscription" (
+CREATE TABLE "Subscribers" (
     "_id" TEXT NOT NULL,
     "agencyId" TEXT NOT NULL,
     "address" VARCHAR(800) NOT NULL,
     "latitude" DOUBLE PRECISION NOT NULL,
     "longitude" DOUBLE PRECISION NOT NULL,
-    "SubscriptionID" VARCHAR(50) NOT NULL,
+    "SubscriberID" VARCHAR(50) NOT NULL,
     "description" VARCHAR(300),
 
-    CONSTRAINT "Subscription_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "Subscribers_pkey" PRIMARY KEY ("_id")
 );
 
 -- CreateIndex
@@ -117,7 +117,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Agency_agencyName_key" ON "Agency"("agencyName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Subscription_SubscriptionID_key" ON "Subscription"("SubscriptionID");
+CREATE UNIQUE INDEX "Subscribers_SubscriberID_key" ON "Subscribers"("SubscriberID");
 
 -- AddForeignKey
 ALTER TABLE "Agency" ADD CONSTRAINT "Agency_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -144,4 +144,4 @@ ALTER TABLE "Message" ADD CONSTRAINT "Message_senderId_fkey" FOREIGN KEY ("sende
 ALTER TABLE "Places" ADD CONSTRAINT "Places_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_agencyId_fkey" FOREIGN KEY ("agencyId") REFERENCES "Agency"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Subscribers" ADD CONSTRAINT "Subscribers_agencyId_fkey" FOREIGN KEY ("agencyId") REFERENCES "Agency"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
