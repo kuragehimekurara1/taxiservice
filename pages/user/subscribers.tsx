@@ -23,6 +23,7 @@ import { LocalizationInfoType } from '../../lib/geography';
 import { LocalizationInfoContext } from '../../components/context/LocalizationInfoContext';
 import { AllSettingsContext } from '../../components/context/AllSettingsContext';
 import { SubscriberDataList } from '../../types/subscriberType';
+import MySubscribers from '../../components/pageTabs/subscriberTabs/MySubscribers';
 
 const Subscriptions = () => {
     const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
@@ -105,6 +106,7 @@ const Subscriptions = () => {
                                                     <Tab value='editSubscriber' label={subscribersPage.editSubscriber} />
                                                 </Tabs>
                                                 <TabPanel activeIndex={tabID} index='mySubscribers'>
+                                                    <MySubscribers />
                                                 </TabPanel>
                                                 <TabPanel activeIndex={tabID} index='addSubscriber'>
                                                     <AddSubscriber />

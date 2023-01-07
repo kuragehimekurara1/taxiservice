@@ -326,6 +326,10 @@ const english = {
             subscriberIDWarning: 'The subscriber ID must be unique.',
             navigateOnMapInfo:'Using the above field, you can search for a place faster on the map.',
         },
+        mySubscribersTab: {
+            subscriber: 'Subscriber',
+            selectSubscriber: 'Choose a subscriber from the list above.',
+        },
     },
     sendsPage: {
         title: 'Sends',

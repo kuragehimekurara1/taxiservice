@@ -324,7 +324,11 @@ const persian = {
             furtherInformation: 'اطلاعات تکمیلی',
             subscriberIDWarning: 'شماره اشتراک باید یکتا باشد',
             navigateOnMapInfo:'با استفاده از فیلد بالا می توانید مکان را سریعتر روی نقشه جستجو کنید.',
-        }
+        },
+        mySubscribersTab: {
+            subscriber: 'مشترک',
+            selectSubscriber:'یک مشترک را از لیست بالا انتخاب کنید.'
+        },
     },
     sendsPage: {
         title: 'ارسال شده',
