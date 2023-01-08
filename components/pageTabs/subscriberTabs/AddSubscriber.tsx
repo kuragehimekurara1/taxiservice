@@ -3,6 +3,7 @@ import AutoCompletePlus, { TaggedItem } from '../../controls/AutoCompletePlus';
 import Button from '@mui/material/Button';
 import CenterBox from '../../controls/CenterBox';
 import ForcedPatternInput from '../../controls/ForcedPatternInput';
+import Loader from '../../controls/Loader';
 import PlacesSearchBox from '../../controls/PlacesSearchBox';
 import React, { useContext, useRef, useState } from 'react';
 import Tab from '@mui/material/Tab';
@@ -13,12 +14,11 @@ import dynamic from 'next/dynamic';
 import { LanguageContext } from '../../context/LanguageContext';
 import { LocalizationInfoContext } from '../../context/LocalizationInfoContext';
 import { SubscriberContext } from '../../context/SubscriberContext';
+import { SubscriberDataList } from '../../../types/subscriberType';
 import { ToastContext } from '../../context/ToastContext';
+import { getResponseError } from '../../../lib/language';
 import { onlyNumbersRegex } from '../../../lib/validator';
 import { postData } from '../../../lib/axiosRequest';
-import { getResponseError } from '../../../lib/language';
-import Loader from '../../controls/Loader';
-import { SubscriberDataList } from '../../../types/subscriberType';
 const Map = dynamic(() => import('../../controls/OpenLayerMap'), { ssr: false });
 
 const AddSubscriber = () => {
@@ -128,11 +128,13 @@ const AddSubscriber = () => {
     return (
         <>
             <CenterBox sx={{ display: loadingText === '' ? 'flex' : 'none' }}>
-                <Tabs value={tabID} onChange={handleTabChange} aria-label='general'>
-                    <Tab label={addSubscriberTab.general} value='general' />
-                    <Tab label={addSubscriberTab.locationSelection} value='locationSelection' />
-                    <Tab label={addSubscriberTab.furtherInformation} value='furtherInformation' />
-                </Tabs>
+                {loadingText === '' &&
+                    <Tabs value={tabID} onChange={handleTabChange} aria-label='general'>
+                        <Tab label={subscribersPage.general} value='general' />
+                        <Tab label={subscribersPage.locationSelection} value='locationSelection' />
+                        <Tab label={subscribersPage.furtherInformation} value='furtherInformation' />
+                    </Tabs>
+                }
                 <TabPanel activeIndex={tabID} index='general'>
                     <AutoCompletePlus items={agencies || []} label={subscribersPage.agencyName} onChanged={e => setSelectedAgency(e)} />
                     <TextField required label={subscribersPage.subscriberName} inputRef={subscriberNameInput} inputProps={{
@@ -144,8 +146,8 @@ const AddSubscriber = () => {
                     <Alert severity='warning'>{addSubscriberTab.subscriberIDWarning}</Alert>
                 </TabPanel>
                 <TabPanel activeIndex={tabID} index='locationSelection'>
-                    <PlacesSearchBox customPlaces={places || []} label={addSubscriberTab.places} onLocationChanged={updateLocation} />
-                    <Alert severity='info'>{addSubscriberTab.navigateOnMapInfo}</Alert>
+                    <PlacesSearchBox customPlaces={places || []} label={subscribersPage.places} onLocationChanged={updateLocation} />
+                    <Alert severity='info'>{subscribersPage.navigateOnMapInfo}</Alert>
                     <Map currentLocation={location?.tag || defaultLocation} onLocationChanged={updateMap} />
                 </TabPanel>
                 <TabPanel activeIndex={tabID} index='furtherInformation' >

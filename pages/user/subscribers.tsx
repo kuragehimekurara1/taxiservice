@@ -1,29 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AuthorizedLayout from '../../components/AuthorizedLayout';
-import { AccountType } from '../../types/accountType';
-import Head from 'next/head';
-import Card from '@mui/material/Card';
-import { LanguageContext } from '../../components/context/LanguageContext';
-import { AgencyDataList } from '../../types/agencies';
-import { getData } from '../../lib/axiosRequest';
-import Loader from '../../components/controls/Loader';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CenterBox from '../../components/controls/CenterBox';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import TabPanel from '../../components/controls/TabPanel';
-import Typography from '@mui/material/Typography';
 import AddSubscriber from '../../components/pageTabs/subscriberTabs/AddSubscriber';
-import { SubscriberContext } from '../../components/context/SubscriberContext';
-import { PlacesList } from '../../types/placeType';
-import { LocalizationInfoType } from '../../lib/geography';
-import { LocalizationInfoContext } from '../../components/context/LocalizationInfoContext';
-import { AllSettingsContext } from '../../components/context/AllSettingsContext';
-import { SubscriberDataList } from '../../types/subscriberType';
+import AuthorizedLayout from '../../components/AuthorizedLayout';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import CenterBox from '../../components/controls/CenterBox';
+import EditSubscriber from '../../components/pageTabs/subscriberTabs/EditSubscriber';
+import Head from 'next/head';
+import Loader from '../../components/controls/Loader';
 import MySubscribers from '../../components/pageTabs/subscriberTabs/MySubscribers';
+import React, { useContext, useEffect, useState } from 'react';
+import Tab from '@mui/material/Tab';
+import TabPanel from '../../components/controls/TabPanel';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import { AccountType } from '../../types/accountType';
+import { AgencyDataList } from '../../types/agencies';
+import { AllSettingsContext } from '../../components/context/AllSettingsContext';
+import { LanguageContext } from '../../components/context/LanguageContext';
+import { LocalizationInfoContext } from '../../components/context/LocalizationInfoContext';
+import { LocalizationInfoType } from '../../lib/geography';
+import { PlacesList } from '../../types/placeType';
+import { SubscriberContext } from '../../components/context/SubscriberContext';
+import { SubscriberDataList } from '../../types/subscriberType';
+import { getData } from '../../lib/axiosRequest';
 
 const Subscriptions = () => {
     const publicUrl = process.env.NEXT_PUBLIC_WEB_URL;
@@ -44,7 +45,7 @@ const Subscriptions = () => {
     useEffect(() => {
         if (!agencyList || reload) {
             const getDataAsync = async () => {
-                setLoadingText(subscribersPage.receivingAgencies);
+                setLoadingText(subscribersPage.receivingData);
                 const response = await getData(publicUrl + '/api/subscribers/retrieve');
                 setLoadingText('');
                 setReload(false);
@@ -57,7 +58,7 @@ const Subscriptions = () => {
             };
             getDataAsync();
         }
-    }, [agencyList, publicUrl, reload, subscribersPage.receivingAgencies]);
+    }, [agencyList, publicUrl, reload, subscribersPage.receivingData]);
 
     useEffect(() => {
         const getDataAsync = async () => {
@@ -112,6 +113,7 @@ const Subscriptions = () => {
                                                     <AddSubscriber />
                                                 </TabPanel>
                                                 <TabPanel activeIndex={tabID} index='editSubscriber'>
+                                                    <EditSubscriber />
                                                 </TabPanel>
                                             </>
                                         }
