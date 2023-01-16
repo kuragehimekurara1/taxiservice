@@ -4,23 +4,22 @@ import Drawer from '@mui/material/Drawer';
 import ExpandableItems from './ExpandableItems';
 import List from '@mui/material/List';
 import SidebarItem from './SidebarItem';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+import { AccountType } from '../types/accountType';
 import { AiFillHome } from 'react-icons/ai';
+import { AllSettingsContext } from './context/AllSettingsContext';
 import { BiSupport, BiPaperPlane } from 'react-icons/bi';
+import { BsMailbox } from 'react-icons/bs';
 import { FaCar, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
-import { LanguageContext } from './context/LanguageContext';
-import { MdAddBusiness, MdOutlineEditRoad, MdOutlineGroupAdd, MdPlace } from 'react-icons/md';
-import { RiMailAddLine, RiSettings3Fill } from 'react-icons/ri';
-import { SidebarContext } from './context/SidebarContext';
-import { TbRoad } from 'react-icons/tb';
-import { useContext, useEffect } from 'react';
-import { BsMailbox } from 'react-icons/bs';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { IoIosPeople } from 'react-icons/io';
-import { AllSettingsContext } from './context/AllSettingsContext';
+import { LanguageContext } from './context/LanguageContext';
+import { MdAddBusiness, MdOutlineAddRoad, MdOutlineEditRoad, MdOutlineGroupAdd, MdPlace } from 'react-icons/md';
+import { RiMailAddLine, RiSettings3Fill } from 'react-icons/ri';
 import { Settings } from '../types/settings';
+import { SidebarContext } from './context/SidebarContext';
 import { getData } from '../lib/axiosRequest';
-import { AccountType } from '../types/accountType';
+import { useContext, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 const Sidebar = () => {
@@ -76,9 +75,13 @@ const Sidebar = () => {
                                     <Divider />
                                 </>
                             }
+                            <ExpandableItems label={sidebar.trips} isOpen={true}>
+                                <SidebarItem item={{ icon: <MdOutlineAddRoad />, text: sidebar.requestTrip, url: '/user/trips/requestTrip' }} />
+                                <SidebarItem item={{ icon: <MdOutlineAddRoad />, text: sidebar.viewTrips, url: '/user/trips/viewTrips' }} />
+                            </ExpandableItems>
+                            <Divider />
                             <SidebarItem item={{ icon: <MdPlace />, text: sidebar.places, url: '/user/places' }} />
-                            <SidebarItem item={{ icon: <TbRoad />, text: sidebar.trips, url: '/user/trips' }} />
-                            <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/payments' }} />
+                            <SidebarItem item={{ icon: <FaMoneyBillAlt />, text: sidebar.payments, url: '/' }} />
                             <Divider />
                             <ExpandableItems label={sidebar.messages} isOpen={true} >
                                 <SidebarItem item={{ icon: <RiMailAddLine />, text: sidebar.createMessage, url: '/user/messages/create' }} />
@@ -90,8 +93,8 @@ const Sidebar = () => {
                         </>
                     }
                     <SidebarItem item={{ icon: <AiFillHome />, text: sidebar.home, url: '/' }} />
-                    <SidebarItem item={{ icon: <FaCar />, text: sidebar.services, url: '/Service' }} />
-                    <SidebarItem item={{ icon: <BiSupport />, text: sidebar.support, url: '/Support' }} />
+                    <SidebarItem item={{ icon: <FaCar />, text: sidebar.services, url: '/' }} />
+                    <SidebarItem item={{ icon: <BiSupport />, text: sidebar.support, url: '/' }} />
                 </List>
             </Box>
         </Drawer>

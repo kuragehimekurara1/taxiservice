@@ -127,7 +127,7 @@ const Navbar = () => {
                                     <IoMdNotifications />
                                 </Badge>
                         </IconButton>
-                        {unreadMessages &&
+                        {unreadMessages && unreadMessages.length > 0 &&
                             <Menu dir={settings.direction} open={open} anchorEl={anchorEl} onClose={handleClose}>
                                 {unreadMessages.map(message => {
                                     return (
