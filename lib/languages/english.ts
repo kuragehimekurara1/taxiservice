@@ -234,7 +234,8 @@ const english = {
         successfullyRemovePlace: 'Well done! The place has been removed successfully by you.',
         successfullyRemoveSubscriber: 'Well done! The subscriber has been removed successfully by you.',
         unauthenticated: 'You are not logged in!',
-        unselectedRow: 'You have not selected any row.'
+        unselectedRow: 'You have not selected any row.',
+        addressAndLocationRequired: 'Please enter an address and select a location on the map.',
     },
     pageNotFound: {
         error404: 'Error 404',

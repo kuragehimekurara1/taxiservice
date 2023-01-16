@@ -53,7 +53,18 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         if (!agency)
             return res.status(404).json({ error: 'ERR_AGENCY_NOT_FOUND' });
-        return res.status(200).json({ agencies: openedAgency });
+        const places = await prisma.places.findMany({
+            where: {
+                userId: user.id
+            },
+            select: {
+                id: true,
+                address: true,
+                longitude: true,
+                latitude: true,
+            }
+        });
+        return res.status(200).json({ agencies: openedAgency , places: places });
     }
     catch (error) {
         log.error(JSON.stringify(error));

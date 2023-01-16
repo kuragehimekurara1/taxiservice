@@ -234,7 +234,8 @@ const persian = {
         successfullyRemovePlace: 'آفرین! مکان با موفقیت توسط شما حذف شده است.',
         successfullyRemoveSubscriber: 'آفرین! مشترک با موفقیت حذف شد.',
         unauthenticated: 'شما وارد سیستم نشده اید!',
-        unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.'
+        unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
+        addressAndLocationRequired: 'لطفا آدرس و مکان مورد نظر را وارد کنید.',
     },
     pageNotFound: {
         error404: 'خطای 404',

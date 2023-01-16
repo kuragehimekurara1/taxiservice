@@ -26,6 +26,7 @@ import SelectAgency from '../../../components/pageTabs/addTripTabs/SelectAgency'
 import SelectDestination from '../../../components/pageTabs/addTripTabs/SelectDestination';
 import { ToastContext } from '../../../components/context/ToastContext';
 import SelectOrigin from '../../../components/pageTabs/addTripTabs/SelectOrigin';
+import { PlacesList } from '../../../types/placeType';
 
 const RequestTrip: NextPage = () => {
 
@@ -39,6 +40,7 @@ const RequestTrip: NextPage = () => {
     const [tabID, setTabId] = useState('0');
     const [reload, setReload] = useState(false);
     const [loadingText, setLoadingText] = useState('');
+    const [places, setPlaces] = useState<PlacesList | undefined>(undefined);
     const [originAddress, setOriginAddress] = useState<string>('');
     const [originLocation, setOriginLocation] = useState<number[] | null>(null);
     const [localizationName, setLocalizationName] = useState('');
@@ -54,8 +56,9 @@ const RequestTrip: NextPage = () => {
                 setLoadingText('');
                 setReload(false);
                 if (response && response.status === 200) {
-                    const { agencies } = response.data;
+                    const { agencies, places } = response.data;
                     setAgencies(agencies as AgencyDataList);
+                    setPlaces(places as PlacesList);
                 }
             };
             getDataAsync();
@@ -101,6 +104,10 @@ const RequestTrip: NextPage = () => {
             setToast({ id: Math.random(), message: notification.selectAgency, alertColor: 'error' });
             return;
         }
+        if (currentStep === 1 && (!originLocation || originAddress.length === 0)) {
+            setToast({ id: Math.random(), message: notification.addressAndLocationRequired, alertColor: 'error' });
+            return;
+        }
         gotoStep(currentStep + 1);
         setTabId((currentStep + 1).toString());
     };
@@ -115,7 +122,7 @@ const RequestTrip: NextPage = () => {
                 <title>{tripCreationPage.title}</title>
             </Head>
             <AuthorizedLayout role={AccountType.customer}>
-                <TripContext.Provider value={{ agencies, setAgencies }}>
+                <TripContext.Provider value={{ agencies, places, setAgencies, setPlaces }}>
                     <Card dir={settings.direction}>
                         {!userSettings ?
                             <SettingFetcher />

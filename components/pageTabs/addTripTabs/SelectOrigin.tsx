@@ -4,6 +4,7 @@ import PlacesSearchBox from '../../controls/PlacesSearchBox';
 import { TaggedItem } from '../../controls/AutoCompletePlus';
 import TextField from '@mui/material/TextField';
 import { LanguageContext } from '../../context/LanguageContext';
+import { TripContext } from '../../context/TripContext';
 
 const Map = dynamic(() => import('../../../components/controls/OpenLayerMap'), { ssr: false });
 export type SelectOriginProps = {
@@ -15,6 +16,7 @@ const SelectOrigin = (props: SelectOriginProps) => {
     const { onAddressChanged: onLocationChanged, agencyLocation } = props;
 
     const { language } = useContext(LanguageContext);
+    const { places } = useContext(TripContext);
 
     const [address, setAddress] = useState<string>('');
     const [currentLocation, setCurrentLocation] = useState<number[]>(agencyLocation);
@@ -32,9 +34,11 @@ const SelectOrigin = (props: SelectOriginProps) => {
         if (location)
             handleLocationChanged(location.tag, address);
     };
+    const customPlaces = places ? places.map(p => ({ tag: [p.latitude, p.longitude], displayText: p.address })) : [];
+
     return (
         <>
-            <PlacesSearchBox onLocationChanged={updateMap} />
+            <PlacesSearchBox customPlaces={customPlaces} onLocationChanged={updateMap} />
             <TextField label={tripCreationPage.address}
                 required
                 multiline
