@@ -1,5 +1,5 @@
 
-const persian = {
+const persian ={
     accessDenied: {
         error403: 'خطای 403',
         imageAlt: 'error 403 access denied',
@@ -176,6 +176,7 @@ const persian = {
         retry: 'تلاش مجدد'
     },
     notification: {
+        addressAndLocationRequired: 'لطفا آدرس و مکان مورد نظر را وارد کنید.',
         addressError: 'آدرس کوتاهی وارد شده است یا مکانی روی نقشه انتخاب نشده است.',
         addressRequired: 'ای وای! به نظر می رسد آدرس خالی است.',
         agencyDuplicateError: 'در حال حاضر آژانسی با همین نام وجود دارد.',
@@ -233,9 +234,9 @@ const persian = {
         successfullyLogin: 'تبریک می گویم، شما با موفقیت وارد سیستم شدید.',
         successfullyRemovePlace: 'آفرین! مکان با موفقیت توسط شما حذف شده است.',
         successfullyRemoveSubscriber: 'آفرین! مشترک با موفقیت حذف شد.',
+        tripRequestSent: 'آفرین! درخواست سفر شما با موفقیت ارسال شد.',
         unauthenticated: 'شما وارد سیستم نشده اید!',
-        unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.',
-        addressAndLocationRequired: 'لطفا آدرس و مکان مورد نظر را وارد کنید.',
+        unselectedRow: 'شما هیچ ردیفی را انتخاب نکرده اید.'
     },
     pageNotFound: {
         error404: 'خطای 404',
@@ -371,7 +372,6 @@ const persian = {
     },
     sidebar: {
         addNewAgency: 'افزودن آژانس جدید',
-        requestTrip: 'درخواست سفر',
         agenciesManagement: 'مدیریت آژانس ها',
         createMessage: 'ایجاد پیام',
         editAgency: 'ویرایش آژانس',
@@ -383,6 +383,7 @@ const persian = {
         payments: 'پرداخت ها',
         personnel: 'پرسنل',
         places: 'مکان ها',
+        requestTrip: 'درخواست سفر',
         sent: 'ارسال شده',
         services: 'سرویس ها',
         settings: 'تنظیمات',
@@ -448,20 +449,31 @@ const persian = {
     },
     systemMessages: {
         JOB_REQUEST_MESSAGE: 'درخواست شغل جدیدی برای شما ارسال شده است.',
-        JOB_REQUEST_TITLE: 'درخواست شغل جدید'
+        JOB_REQUEST_TITLE: 'درخواست شغل جدید',
+        SERVICE_REQUEST_MESSAGE: 'درخواست سرویس جدیدی برای شما ارسال شده است.',
+        SERVICE_REQUEST_TITLE: 'درخواست سرویس جدید'
     },
     tripCreationPage: {
-        reload: 'بارگذاری مجدد',
-        selectAgency: 'انتخاب آژانس',
-        title: 'ایجاد سفر',
         activeAgencies: 'آژانس های فعال',
+        add: 'افزودن',
+        additionalInfo: 'اطلاعات تکمیلی',
+        additionalInfoMessage: 'شماره اشتراک و اطلاعات تکمیلی اضافی اختیاری است، اما می توانید آنها را ارائه دهید.',
+        address: 'آدرس',
+        agency: 'آژانس',
+        destination: 'مقصد',
+        nextStep: 'مرحله بعد',
+        origin: 'مبدا',
         phoneNumber1: 'شماره تلفن 1',
         phoneNumber2: 'شماره تلفن 2',
-        address: 'آدرس',
+        previousStep: 'مرحله قبل',
         receivingData: 'در حال دریافت اطلاعات...',
-        nextStep: 'مرحله بعد',
-        selectOrigin: 'انتخاب مبدا',
+        reload: 'بارگذاری مجدد',
+        selectAgency: 'انتخاب آژانس',
         selectDestination: 'انتخاب مقصد',
+        selectOrigin: 'انتخاب مبدا',
+        sendingRequest: 'در حال ارسال درخواست...',
+        subscriberID: 'شماره اشتراک',
+        title: 'درخواست سفر'
     },
     userInformationDialog: {
         accountType: 'نوع حساب',

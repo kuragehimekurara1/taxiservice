@@ -176,6 +176,7 @@ const english = {
         retry: 'Retry'
     },
     notification: {
+        addressAndLocationRequired: 'Please enter an address and select a location on the map.',
         addressError: 'A short address is entered or a location on the map has not been selected.',
         addressRequired: 'Oh my! The address appears to be blank.',
         agencyDuplicateError: 'There is already an agency with the same name.',
@@ -233,9 +234,9 @@ const english = {
         successfullyLogin: 'Congratulations, you have successfully logged in.',
         successfullyRemovePlace: 'Well done! The place has been removed successfully by you.',
         successfullyRemoveSubscriber: 'Well done! The subscriber has been removed successfully by you.',
+        tripRequestSent: 'Well done! The trip request has been sent successfully.',
         unauthenticated: 'You are not logged in!',
-        unselectedRow: 'You have not selected any row.',
-        addressAndLocationRequired: 'Please enter an address and select a location on the map.',
+        unselectedRow: 'You have not selected any row.'
     },
     pageNotFound: {
         error404: 'Error 404',
@@ -371,7 +372,6 @@ const english = {
     },
     sidebar: {
         addNewAgency: 'Add new agency',
-        requestTrip: 'Request a trip',
         agenciesManagement: 'Agencies management',
         createMessage: 'Create message',
         editAgency: 'Edit agency',
@@ -383,6 +383,7 @@ const english = {
         payments: 'Payments',
         personnel: 'Personnel',
         places: 'Places',
+        requestTrip: 'Request a trip',
         sent: 'Sent',
         services: 'Services',
         settings: 'Settings',
@@ -448,20 +449,31 @@ const english = {
     },
     systemMessages: {
         JOB_REQUEST_MESSAGE: 'You have a new job request.',
-        JOB_REQUEST_TITLE: 'Job request'
+        JOB_REQUEST_TITLE: 'Job request',
+        SERVICE_REQUEST_MESSAGE: 'You have a new service request.',
+        SERVICE_REQUEST_TITLE: 'Service request'
     },
     tripCreationPage: {
-        title: 'Trip creation',
-        selectAgency: 'Select agency',
-        reload: 'Reload',
         activeAgencies: 'Active agencies',
+        add: 'Add',
+        additionalInfo: 'Additional information',
+        additionalInfoMessage: 'Subscribing IDs and additional trip information are optional, but you can provide them',
+        address: 'Address',
+        agency: 'Agency',
+        destination: 'Destination',
+        nextStep: 'Next step',
+        origin: 'Origin',
         phoneNumber1: 'Phone number 1',
         phoneNumber2: 'Phone number 2',
-        address: 'Address',
+        previousStep: 'Previous step',
         receivingData: 'Receiving data...',
-        nextStep: 'Next step',
-        selectOrigin: 'Select origin',
+        reload: 'Reload',
+        selectAgency: 'Select agency',
         selectDestination: 'Select destination',
+        selectOrigin: 'Select origin',
+        sendingRequest: 'Sending request...',
+        subscriberID: 'Subscriber ID',
+        title: 'Request a trip'
     },
     userInformationDialog: {
         accountType: 'Account type',
@@ -472,5 +484,4 @@ const english = {
         signOut: 'Sign out'
     }
 }
-
 export default english;

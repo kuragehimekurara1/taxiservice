@@ -15,7 +15,7 @@ import TabPanel from '../../../components/controls/TabPanel';
 import { AccountType } from '../../../types/accountType';
 import { AgencyData, AgencyDataList } from '../../../types/agencies';
 import { AllSettingsContext } from '../../../components/context/AllSettingsContext';
-import { getData } from '../../../lib/axiosRequest';
+import { getData, postData } from '../../../lib/axiosRequest';
 import { LanguageContext } from '../../../components/context/LanguageContext';
 import { LocalizationInfoContext } from '../../../components/context/LocalizationInfoContext';
 import { LocalizationInfoType } from '../../../lib/geography';
@@ -27,6 +27,8 @@ import SelectDestination from '../../../components/pageTabs/addTripTabs/SelectDe
 import { ToastContext } from '../../../components/context/ToastContext';
 import SelectOrigin from '../../../components/pageTabs/addTripTabs/SelectOrigin';
 import { PlacesList } from '../../../types/placeType';
+import AdditionalInfo from '../../../components/pageTabs/addTripTabs/AdditionalInfo';
+import { getResponseError } from '../../../lib/language';
 
 const RequestTrip: NextPage = () => {
 
@@ -42,12 +44,17 @@ const RequestTrip: NextPage = () => {
     const [loadingText, setLoadingText] = useState('');
     const [places, setPlaces] = useState<PlacesList | undefined>(undefined);
     const [originAddress, setOriginAddress] = useState<string>('');
+    const [destinationAddress, setDestinationAddress] = useState<string>('');
+    const [destinationLocation, setDestinationLocation] = useState<number[] | null>(null);
     const [originLocation, setOriginLocation] = useState<number[] | null>(null);
     const [localizationName, setLocalizationName] = useState('');
     const [agencies, setAgencies] = useState<AgencyDataList | undefined>(undefined);
     const [currentStep, setCurrentStep] = useState(0);
     const [selectedAgency, setSelectedAgency] = useState<AgencyData | null>(null);
+    const [subscriberID, setSubscriberID] = useState<string>('');
+    const [additionalInfo, setAdditionalInfo] = useState<string>('');
 
+    const lastStep = 3;
     useEffect(() => {
         if (!agencies || reload) {
             const getDataAsync = async () => {
@@ -80,7 +87,8 @@ const RequestTrip: NextPage = () => {
 
 
     const BreadcrumbsSteps = () => {
-        const stepsLabel = [tripCreationPage.selectAgency, tripCreationPage.selectOrigin, tripCreationPage.selectDestination].slice(0, currentStep + 1);
+        const stepsLabel = [tripCreationPage.selectAgency, tripCreationPage.selectOrigin,
+        tripCreationPage.selectDestination, tripCreationPage.additionalInfo].slice(0, currentStep + 1);
 
         return (
             <Breadcrumbs separator='›' aria-label='agency-breadcrumb'>
@@ -100,6 +108,9 @@ const RequestTrip: NextPage = () => {
         setTabId(step.toString());
     };
     const nextStep = () => {
+        if (currentStep === lastStep) {
+            return;
+        }
         if (!selectedAgency) {
             setToast({ id: Math.random(), message: notification.selectAgency, alertColor: 'error' });
             return;
@@ -108,14 +119,55 @@ const RequestTrip: NextPage = () => {
             setToast({ id: Math.random(), message: notification.addressAndLocationRequired, alertColor: 'error' });
             return;
         }
+        if (currentStep === 2 && (!destinationLocation || destinationAddress.length === 0)) {
+            setToast({ id: Math.random(), message: notification.addressAndLocationRequired, alertColor: 'error' });
+            return;
+        }
         gotoStep(currentStep + 1);
         setTabId((currentStep + 1).toString());
     };
-    const handleOriginAddressChange = (location: number[], address: string) => {
+    const handleOriginAddressChange = (location: number[] | null, address: string) => {
         setOriginLocation(location);
         setOriginAddress(address);
     };
+    const handleDestinationChange = (location: number[] | null, address: string) => {
+        setDestinationLocation(location);
+        setDestinationAddress(address);
+    };
+    const handleUpdate = async () => {
 
+        if (!selectedAgency)
+            return;
+        if (!originLocation || originAddress.length === 0)
+            return;
+        if (!destinationLocation || destinationAddress.length === 0)
+            return;
+        const agencyID = selectedAgency.id;
+
+        const data = { agencyID, originLocation, originAddress, destinationLocation, destinationAddress, additionalInfo, subscriberID };
+
+        setLoadingText(tripCreationPage.sendingRequest);
+        const response = await postData(publicUrl + '/api/trips/addRequest', data);
+        setLoadingText('');
+
+        if (!response) {
+            setToast({ id: Date.now(), message: getResponseError('ERR_NULL_RESPONSE', language), alertColor: 'error' });
+            return;
+        }
+        if (response && response.status === 200) {
+            setToast({ id: Math.random(), message: notification.tripRequestSent, alertColor: 'success' });
+            setTabId('0');
+            setCurrentStep(0);
+            setReload(true);
+            return;
+        }
+        const { error } = response.data as { error: string; };
+        if (error)
+            setToast({ id: Date.now(), message: getResponseError(error, language), alertColor: 'error' });
+        else
+            setToast({ id: Date.now(), message: getResponseError('HTML_ERROR_' + response.status, language), alertColor: 'error' });
+
+    };
     return (
         <>
             <Head>
@@ -144,13 +196,34 @@ const RequestTrip: NextPage = () => {
                                                 }
                                             </TabPanel>
                                             <TabPanel activeIndex={tabID} index={'2'} >
-                                                <SelectDestination />
+                                                {
+                                                    selectedAgency && originLocation &&
+                                                    <SelectDestination onAddressChanged={handleDestinationChange}
+                                                        agencyLocation={[selectedAgency.latitude, selectedAgency.longitude]} originLocation={[
+                                                            originLocation[0], originLocation[1]
+                                                        ]} />
+                                                }
+                                            </TabPanel>
+                                            <TabPanel activeIndex={tabID} index={'3'} >
+                                                <AdditionalInfo
+                                                    onSubscriberIDChanged={(id) => setSubscriberID(id)}
+                                                    onDescriptionChanged={(info) => setAdditionalInfo(info)
+                                                    } />
                                             </TabPanel>
                                         </CenterBox>
                                     </CardContent>
                                     <CardActions sx={{ justifyContent: 'end', gap: '1rem' }}>
                                         <Button variant='contained' onClick={() => setReload(true)}>{tripCreationPage.reload}</Button>
-                                        <Button variant='contained' onClick={() => nextStep()} >{tripCreationPage.nextStep}</Button>
+                                        <Button variant='contained' disabled={currentStep === 0}
+                                            onClick={() => setCurrentStep(currentStep > 0 ? currentStep - 1 : 0)} >
+                                            {tripCreationPage.previousStep}
+                                        </Button>
+                                        {currentStep === lastStep &&
+                                            <Button variant='contained' onClick={handleUpdate} > {tripCreationPage.add}</Button>
+                                        }
+                                        <Button variant='contained' disabled={currentStep === lastStep} onClick={() => nextStep()} >
+                                            {tripCreationPage.nextStep}
+                                        </Button>
 
                                     </CardActions>
                                 </>

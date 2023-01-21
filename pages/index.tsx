@@ -9,7 +9,7 @@ import { useContext } from 'react';
 const Home: NextPage = () => {
 
   const { language } = useContext(LanguageContext);
-  const { homePage } = language;
+  const { homePage,settings } = language;
 
   return (
     <>
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <title>{homePage.title}</title>
       </Head>
       <Card>
-        <CardContent>
+        <CardContent sx={{ direction: settings.direction }}>
           <Typography variant='h5' component='h2'>
             {homePage.title}
           </Typography>

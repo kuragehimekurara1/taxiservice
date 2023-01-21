@@ -36,6 +36,8 @@ const SelectOrigin = (props: SelectOriginProps) => {
     };
     const customPlaces = places ? places.map(p => ({ tag: [p.latitude, p.longitude], displayText: p.address })) : [];
 
+    const markers = [{ location: agencyLocation, text: tripCreationPage.agency }];
+
     return (
         <>
             <PlacesSearchBox customPlaces={customPlaces} onLocationChanged={updateMap} />
@@ -46,7 +48,7 @@ const SelectOrigin = (props: SelectOriginProps) => {
                 inputProps={{ maxLength: 800 }}
                 onBlur={e => handleLocationChanged(currentLocation, e.target.value)}
             />
-            <Map currentLocation={currentLocation} markers={[{ location: agencyLocation, text: 'agency' }]} onLocationChanged={e =>
+            <Map currentLocation={currentLocation} markers={markers} onLocationChanged={e =>
                 handleLocationChanged(e, address)
             } />
         </>

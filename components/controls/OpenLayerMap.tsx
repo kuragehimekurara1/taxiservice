@@ -58,7 +58,7 @@ const OpenLayerMap = (props: MapProps) => {
             </Marker>
             {markers?.map((marker,index) => {
                 return (
-                    <Marker key={index}  position={arrayToLatLong(marker.location)}>
+                    <Marker key={index} position={arrayToLatLong(marker.location)}>
                         <Popup>
                             {marker.text}
                         </Popup>

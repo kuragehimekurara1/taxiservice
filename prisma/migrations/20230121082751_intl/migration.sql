@@ -57,18 +57,21 @@ CREATE TABLE "Personel" (
 -- CreateTable
 CREATE TABLE "Trips" (
     "_id" TEXT NOT NULL,
-    "tripName" VARCHAR(50) NOT NULL,
-    "tripDescription" VARCHAR(300) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "startDateTime" TIMESTAMPTZ NOT NULL,
     "endDateTime" TIMESTAMPTZ NOT NULL,
-    "destination" VARCHAR(300) NOT NULL,
+    "destinationAddress" VARCHAR(300) NOT NULL,
     "destinationLatitude" DOUBLE PRECISION NOT NULL,
     "destinationLongitude" DOUBLE PRECISION NOT NULL,
-    "sourceLatitude" DOUBLE PRECISION NOT NULL,
-    "sourceLongitude" DOUBLE PRECISION NOT NULL,
+    "originAddress" VARCHAR(300) NOT NULL,
+    "originLatitude" DOUBLE PRECISION NOT NULL,
+    "originLongitude" DOUBLE PRECISION NOT NULL,
+    "agencyId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "personelId" TEXT NOT NULL,
+    "personelId" TEXT,
+    "subscriberID" VARCHAR(50),
+    "description" VARCHAR(300),
+    "status" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Trips_pkey" PRIMARY KEY ("_id")
 );
@@ -101,10 +104,12 @@ CREATE TABLE "Places" (
 CREATE TABLE "Subscribers" (
     "_id" TEXT NOT NULL,
     "agencyId" TEXT NOT NULL,
+    "name" VARCHAR(50) NOT NULL,
     "address" VARCHAR(800) NOT NULL,
     "latitude" DOUBLE PRECISION NOT NULL,
     "longitude" DOUBLE PRECISION NOT NULL,
-    "SubscriberID" VARCHAR(50) NOT NULL,
+    "subscriberID" VARCHAR(50) NOT NULL,
+    "phoneNumber" VARCHAR(30),
     "description" VARCHAR(300),
 
     CONSTRAINT "Subscribers_pkey" PRIMARY KEY ("_id")
@@ -117,7 +122,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Agency_agencyName_key" ON "Agency"("agencyName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Subscribers_SubscriberID_key" ON "Subscribers"("SubscriberID");
+CREATE UNIQUE INDEX "Subscribers_subscriberID_key" ON "Subscribers"("subscriberID");
 
 -- AddForeignKey
 ALTER TABLE "Agency" ADD CONSTRAINT "Agency_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -129,10 +134,13 @@ ALTER TABLE "Personel" ADD CONSTRAINT "Personel_userId_fkey" FOREIGN KEY ("userI
 ALTER TABLE "Personel" ADD CONSTRAINT "Personel_agencyId_fkey" FOREIGN KEY ("agencyId") REFERENCES "Agency"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Trips" ADD CONSTRAINT "Trips_agencyId_fkey" FOREIGN KEY ("agencyId") REFERENCES "Agency"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Trips" ADD CONSTRAINT "Trips_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Trips" ADD CONSTRAINT "Trips_personelId_fkey" FOREIGN KEY ("personelId") REFERENCES "Personel"("_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Trips" ADD CONSTRAINT "Trips_personelId_fkey" FOREIGN KEY ("personelId") REFERENCES "Personel"("_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD CONSTRAINT "Message_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE SET NULL ON UPDATE CASCADE;
